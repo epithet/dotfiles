@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -e
+
+#repos=(local:/tmp/backup)
+#budirs=(~/work ~/Documents)
+#stage=/backup
+. $0.settings
+
+function add_budir() {
+    local dirname="$(basename $1)"
+    local mp="$stage/$dirname"
+    budirnames+=("$dirname")
+    mountpoint -q "$mp" && return
+    sudo mkdir -p "$mp"
+    sudo mount --bind "$1" "$mp"
+}
+for dir in "${budirs[@]}"; do
+    add_budir "$dir"
+done
+cd "$stage"
+
+for repo in "${repos[@]}"; do
+    export RESTIC_PASSWORD=$(pass show "restic/$repo")
+    snapspec=(--repo "$repo" --host anyhost --tag bu)
+    parent=$(restic snapshots "${snapspec[@]}" --json |jq -r "last .id")
+    set -x
+    restic backup "${snapspec[@]}" --parent $parent "${budirnames[@]}"
+    set +x
+done
