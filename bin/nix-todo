@@ -1,0 +1,15 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p janet jq bash
+
+set -euo pipefail
+
+# prints what will happen if you run `nix-env -ri`
+# https://github.com/ianthehenry/sd-nix/blob/master/diff
+
+query() {
+  nix-env -q "$@" --json | jq -r '.[] | .pname + " " + .version'
+}
+
+janet "$0.janet" \
+  <(query) \
+  <(query -af ~/.nix-defexpr)
