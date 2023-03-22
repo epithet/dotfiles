@@ -7,9 +7,6 @@ function append_to_path() {
 }
 append_to_path "~/bin"
 
-EDITOR="nvim"
-alias vi="nvim"
-
 alias dots="git --git-dir ~/.dotfiles --work-tree ~"
 . /run/current-system/sw/share/bash-completion/completions/git
 eval "$(complete -p |awk '/ git$/{sub(/ git$/," dots");print}')"

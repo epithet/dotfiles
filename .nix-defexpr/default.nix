@@ -19,7 +19,6 @@ with import <nixpkgs> {}; [
 
   gnome.simple-scan
 
-  neovim
   helix rust-analyzer lldb clang-tools rnix-lsp
   gitui
   git-ftp
