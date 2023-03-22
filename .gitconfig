@@ -1,0 +1,45 @@
+# vim: noexpandtab sw=8 ts=8 sts=8
+[user]
+	name = Sébastien Hoffmann
+	email = sog@i.net
+[alias]
+	s = status --short --branch --untracked
+	root = hash-object -t tree /dev/null
+	conflicts = diff --name-only --diff-filter=U # git ls-files -u
+	untracked = ls-files . --ignored --exclude-standard --others
+	l  = log --pretty=seb
+	lg = log --pretty=seb --graph
+	la = log --pretty=seb --graph --all --remotes
+	ls = log --pretty=seb --graph --simplify-by-decoration develop --branches=\"release/*\"
+	ln = log --pretty=seb --numstat
+	yolo = !git commit -m \"$(curl -x \"http://hoffm_se:%3B8)oCV4cB@proxy-emea.rsint.net:80/\" -s whatthecommit.com/index.txt)\"
+[pretty]
+	seb = format:%C(auto)%h %ad%d %C(blue)%an%Creset %s
+#[format]
+#	pretty = %C(auto)%h %ad%d %C(bold)%an%Creset %s
+[log]
+	date = format:%d.%m.%y %H:%M
+[merge]
+	tool = meld
+#	tool = bc3
+#	conflictstyle = diff3
+#	ff = false
+#[mergetool "bc3"]
+#	path = /c/Program Files/Beyond Compare 4/BCompare.exe
+#	keepBackup = false
+[core]
+	autocrlf = false
+	editor = vim
+[credential]
+	helper = !pass-git-helper $@
+#	helper = wincred
+[push]
+	default = simple
+[pull]
+	ff = only
+[fetch]
+	prune = true
+[rerere]
+	enabled = false
+[safe]
+	directory = /etc/nixos

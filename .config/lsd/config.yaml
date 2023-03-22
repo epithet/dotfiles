@@ -1,0 +1,9 @@
+#hyperlink: always
+color:
+  when: always
+icons:
+  when: never
+date: '+%d.%m.%y'
+size: short
+sorting:
+  dir-grouping: first

@@ -1,0 +1,51 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+[character]
+success_symbol = '[\$](bold green)'
+error_symbol = '[\$](bold red)'
+
+[status]
+style = 'bg:blue'
+symbol = '🔴'
+success_symbol = ''
+format = '$symbol $status( \($common_meaning$signal_name\)) '
+map_symbol = true
+disabled = false
+
+[directory]
+truncation_length = 0
+truncate_to_repo = false
+
+[git_branch]
+format = '[$symbol$branch(:$remote_branch)]($style) '
+[c]
+format = '[$symbol($version(-$name) )]($style)'
+[conda]
+format = '[$symbol$environment]($style) '
+[docker_context]
+format = '[$symbol$context]($style) '
+[dotnet]
+format = '[$symbol($version )(🎯 $tfm )]($style)'
+[golang]
+format = '[$symbol($version )]($style)'
+[haskell]
+format = '[$symbol($version )]($style)'
+[java]
+format = '[$symbol($version )]($style)'
+[julia]
+format = '[$symbol($version )]($style)'
+[nix_shell]
+symbol = '❄️ '
+#format = '[$symbol$state( \($name\))]($style) '
+format = '[$symbol($name)]($style) '
+[nodejs]
+format = '[$symbol($version )]($style)'
+[package]
+format = '[$symbol$version]($style) '
+[php]
+format = '[$symbol($version )]($style)'
+[rust]
+format = '[$symbol($version )]($style)'
