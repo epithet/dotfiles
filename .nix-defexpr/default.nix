@@ -11,6 +11,7 @@ with import <nixpkgs> {}; [
   mdcat
   binutils
   bubblewrap
+  xclip # needed for neovim "+y and "+p
 
   firefox surf # w3m lynx elinks browsh (jumanji?)
   zathura
