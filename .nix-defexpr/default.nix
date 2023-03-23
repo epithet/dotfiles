@@ -4,12 +4,12 @@ with import <nixpkgs> {}; [
   tab-rs zellij
   starship
   exa lsd bat ripgrep ripgrep-all fd
-  procs htop lsof
+  procs htop lsof # lsof needed for htop 'l'
   progress
   tldr
   jq
   mdcat
-  binutils
+  binutils # strings needed for less (binary files)
   bubblewrap
   xclip # needed for neovim "+y and "+p
 
