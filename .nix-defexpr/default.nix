@@ -13,6 +13,9 @@ with import <nixpkgs> {}; [
   bubblewrap
   xclip # needed for neovim "+y and "+p
 
+  rofi
+  rofimoji
+
   firefox surf # w3m lynx elinks browsh (jumanji?)
   zathura
   # mutt aerc
