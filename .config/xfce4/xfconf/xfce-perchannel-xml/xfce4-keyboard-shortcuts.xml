@@ -188,6 +188,8 @@
       <property name="&lt;Alt&gt;Insert" type="string" value="add_workspace_key"/>
       <property name="&lt;Primary&gt;F1" type="string" value="workspace_1_key"/>
       <property name="override" type="bool" value="true"/>
+      <property name="&lt;Alt&gt;&lt;Super&gt;Left" type="string" value="move_window_left_workspace_key"/>
+      <property name="&lt;Alt&gt;&lt;Super&gt;Right" type="string" value="move_window_right_workspace_key"/>
     </property>
   </property>
   <property name="providers" type="array">
