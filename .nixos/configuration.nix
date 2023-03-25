@@ -42,9 +42,22 @@
   # TLP
   services.tlp = {
     enable = true;
+    # run `tlp-stat -c` to view current settings
     settings = {
       START_CHARGE_THRESH_BAT0 = "75";
       STOP_CHARGE_THRESH_BAT0 = "80";
+      # performance mode can be changed with keyboard shortcuts:
+      # - Fn+l - low-power
+      # - Fn+m - balanced
+      # - Fn+h - performance
+      # current mode can be viewd with
+      # `cat /sys/firmware/acpi/platform_profile`
+      PLATFORM_PROFILE_ON_BAT = "low-power";
+      PLATFORM_PROFILE_ON_AC = "low-power";
+      # the WWAN chip currently has issues with runtime power management
+      # and will prevent booting if runtime-pm is enabled for the device.
+      # To exclude it, modify the tlp configuration like:
+      #RUNTIME_PM_DENYLIST="08:00.0"
     };
   };
 
