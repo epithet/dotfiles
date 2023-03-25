@@ -65,6 +65,9 @@
   services.xserver.enable = true;
   #services.xserver.videoDrivers = [ "intel" ];
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.lightdm.greeters.slick.enable = true;
+  services.xserver.displayManager.lightdm.greeters.slick.extraConfig =
+    "clock-format=%F | %a | wk%V | %T";
   services.xserver.displayManager.defaultSession = "xfce";
   services.xserver.desktopManager.xfce.enable = true;
   #services.xserver.desktopManager.xfce.thunarPlugins = [ pkgs.xfce.thunar-archive-plugin ];
