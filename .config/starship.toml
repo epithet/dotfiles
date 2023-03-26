@@ -18,6 +18,7 @@ disabled = false
 [directory]
 truncation_length = 0
 truncate_to_repo = false
+style='blue bold'
 
 [git_branch]
 format = '[$symbol$branch(:$remote_branch)]($style) '
