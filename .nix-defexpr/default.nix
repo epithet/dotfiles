@@ -24,7 +24,7 @@ with import <nixpkgs> {}; [
   gnome.simple-scan
 
   helix rust-analyzer lldb clang-tools rnix-lsp
-  gitui
+  gitui tig
   git-ftp
   meld
 
