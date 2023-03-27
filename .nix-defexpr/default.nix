@@ -23,7 +23,19 @@ with import <nixpkgs> {}; [
 
   gnome.simple-scan
 
-  helix rust-analyzer lldb clang-tools rnix-lsp
+  (vimUtils.packDir({
+    myNvimPlugins = {
+      start = with vimPlugins; [
+        vim-nix
+        nvim-lspconfig
+      ];
+    };
+  }))
+  rnix-lsp
+  clang-tools
+  rust-analyzer cargo rustc
+  lldb
+
   gitui tig
   git-ftp
   meld
