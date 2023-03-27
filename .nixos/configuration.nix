@@ -158,21 +158,25 @@
 
   programs.neovim = {
     enable = true;
+    defaultEditor = true; # environment.variables.EDITOR = "nvim";
     viAlias = true;
     vimAlias = true;
     configure = {
       customRC = ''
         set ts=4 sw=4 sts=0 smarttab expandtab autoindent
+        if filereadable(expand("~/.config/nvim/init.vim"))
+          source ~/.config/nvim/init.vim
+        endif
       '';
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
+        ];
+        opt = [
           vim-nix
         ];
       };
     };
   };
-
-  environment.variables.EDITOR = "nvim";
 
   # remove weird default aliases from /etc/bashrc
   environment.shellAliases = { l = null; ll = null; };
