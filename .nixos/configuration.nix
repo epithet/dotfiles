@@ -69,8 +69,14 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.greeters.slick.enable = true;
   services.xserver.displayManager.lightdm.greeters.slick.iconTheme.name = "Numix";
-  services.xserver.displayManager.lightdm.greeters.slick.extraConfig =
-    "clock-format=%F | %a | wk%V | %T";
+  services.xserver.displayManager.lightdm.greeters.slick.extraConfig = ''
+    show-hostname=false
+    show-power=true
+    show-keyboard=true
+    show-clock=true
+    show-quit=true
+    clock-format=%F | %a | wk%V | %T
+  '';
   services.xserver.displayManager.defaultSession = "xfce";
   services.xserver.desktopManager.xfce.enable = true;
   #services.xserver.desktopManager.xfce.thunarPlugins = [ pkgs.xfce.thunar-archive-plugin ];
