@@ -32,6 +32,7 @@ with import <nixpkgs> {}; [
     };
   }))
   rnix-lsp
+  sumneko-lua-language-server
   clang-tools
   rust-analyzer cargo rustc
   lldb

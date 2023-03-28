@@ -1,8 +1,10 @@
 -- https://github.com/neovim/nvim-lspconfig/
 local lspconfig = require('lspconfig')
-lspconfig.rnix.setup {}
-lspconfig.clangd.setup {}
-lspconfig.rust_analyzer.setup {}
+local cfg = { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
+lspconfig.rnix.setup(cfg)
+lspconfig.sumneko_lua.setup(cfg)
+lspconfig.clangd.setup(cfg)
+lspconfig.rust_analyzer.setup(cfg)
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
