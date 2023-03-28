@@ -68,6 +68,7 @@
   #services.xserver.videoDrivers = [ "intel" ];
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.displayManager.lightdm.greeters.slick.enable = true;
+  services.xserver.displayManager.lightdm.greeters.slick.iconTheme.name = "Numix";
   services.xserver.displayManager.lightdm.greeters.slick.extraConfig =
     "clock-format=%F | %a | wk%V | %T";
   services.xserver.displayManager.defaultSession = "xfce";
@@ -146,6 +147,7 @@
     xorg.xkill # : Ctrl+Alt+Esc
     onboard # xfce4-screensaver-preferences > Lock Screen > On Screen Keyboard
     brightnessctl redshift # acpilight light
+    numix-icon-theme
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
