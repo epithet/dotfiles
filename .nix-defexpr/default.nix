@@ -47,4 +47,7 @@ with import <nixpkgs> {}; [
   pass pass-git-helper
   gnupg
 
+  wmctrl
+  gebaar-libinput
+
 ]

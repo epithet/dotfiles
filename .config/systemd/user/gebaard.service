@@ -1,0 +1,11 @@
+[Unit]
+Description=Gebaar - WM Independent Touchpad Gesture Daemon for libinput
+After=graphical.target
+
+[Service]
+ExecStart=/home/seb/.nix-profile/bin/gebaard
+Environment=DISPLAY=:0
+Environment=PATH=/run/current-system/sw/bin/:/home/seb/.nix-profile/bin/
+
+[Install]
+WantedBy=default.target

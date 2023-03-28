@@ -132,6 +132,14 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
+  # Give users access to touchpad via access control list (cf. `getfacl`),
+  # i.e. without adding them to the `input` group (keylogger danger).
+  # Used by e.g. `gebaar-libinput` and https://github.com/mqudsi/syngesture/
+  # cf. `libinput debug-events`, `udevadm info -t`
+  # https://github.com/systemd/systemd/issues/4288
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_TOUCHPAD}=="1", TAG+="uaccess"
+  '';
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.seb = {
