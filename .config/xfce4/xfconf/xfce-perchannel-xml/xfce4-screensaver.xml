@@ -12,5 +12,9 @@
   </property>
   <property name="lock" type="empty">
     <property name="enabled" type="bool" value="true"/>
+    <property name="saver-activation" type="empty">
+      <property name="enabled" type="bool" value="true"/>
+      <property name="delay" type="int" value="1"/>
+    </property>
   </property>
 </channel>
