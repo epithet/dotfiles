@@ -5,6 +5,7 @@ with import <nixpkgs> {}; [
   starship
   exa lsd bat ripgrep ripgrep-all fd
   procs htop lsof # lsof needed for htop 'l'
+  file
   progress
   tldr
   jq
