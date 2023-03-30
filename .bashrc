@@ -20,4 +20,6 @@ alias tree="lsd --tree --icon=always"
 alias less="less -S"
 alias grep="grep --color=auto"
 
+export HISTCONTROL=ignorespace:ignoredups
+
 eval "$(starship init bash)"
