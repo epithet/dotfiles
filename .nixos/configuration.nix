@@ -4,7 +4,7 @@
 
 { config, pkgs, ... }:
 
-{
+builtins.removeAttrs rec {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports =
@@ -120,10 +120,7 @@
   #services.avahi.openFirewall = true;
   # Samsung proprietary
   services.printing.drivers = [ pkgs.samsung-unified-linux-driver ];
-  nixpkgs.config.allowUnfreePredicate =
-    pkg: builtins.elem (pkgs.lib.getName pkg) [
-      "samsung-UnifiedLinuxDriver"
-    ];
+  _collect.printer.unfree = [ pkgs.samsung-unified-linux-driver ];
 
   # Enable SANE to scan documents.
   hardware.sane.enable = true;
@@ -139,7 +136,7 @@
   # Used by e.g. `gebaar-libinput` and https://github.com/mqudsi/syngesture/
   # cf. `libinput debug-events`, `udevadm info -t`
   # https://github.com/systemd/systemd/issues/4288
-  services.udev.extraRules = ''
+  _collect.libinput.udev = ''
     ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_TOUCHPAD}=="1", TAG+="uaccess"
   '';
 
@@ -210,6 +207,20 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  # collect extra udev rules -> /etc/udev/rules.d/99-local.rules
+  services.udev.extraRules =
+    with builtins;
+    concatStringsSep "\n" (catAttrs "udev" (attrValues _collect));
+
+  # collect unfree packages
+  nixpkgs.config.allowUnfreePredicate =
+    with builtins;
+    let
+      unfreePkgs = concatLists (catAttrs "unfree" (attrValues _collect));
+      unfreePkgNames = map pkgs.lib.getName unfreePkgs;
+    in
+      pkg: elem (pkgs.lib.getName pkg) unfreePkgNames;
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
@@ -223,5 +234,4 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.05"; # Did you read the comment?
 
-}
-
+} [ "_collect" ]
