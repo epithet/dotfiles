@@ -58,6 +58,8 @@
       # and will prevent booting if runtime-pm is enabled for the device.
       # To exclude it, modify the tlp configuration like:
       #RUNTIME_PM_DENYLIST="08:00.0"
+      # cf. execute `bluetooth on` or `rfkill unblock bluetooth` to enable
+      DEVICES_TO_DISABLE_ON_STARTUP = "bluetooth";
     };
   };
 
