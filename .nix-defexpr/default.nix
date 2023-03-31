@@ -16,6 +16,7 @@ with import <nixpkgs> {}; [
 
   rofi
   rofimoji
+  xfce.xfdashboard
 
   firefox surf # w3m lynx elinks browsh (jumanji?)
   zathura

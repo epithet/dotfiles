@@ -1,3 +1,4 @@
 [commands.swipe.three]
 left = "wmctrl -s $(wmctrl -d | awk '$2==\"*\"{cur=NR} END{print cur % NR}')"
 right = "wmctrl -s $(wmctrl -d | awk '$2==\"*\"{cur=NR} END{print (cur+NR-2) % NR}')"
+up = "xfdashboard"
