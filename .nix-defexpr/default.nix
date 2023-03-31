@@ -1,6 +1,13 @@
 with import <nixpkgs> {}; [
 
   alacritty # sakura wezterm foot
+  (writeShellScriptBin "gnome-terminal" ''
+    # https://gitlab.xfce.org/xfce/exo/-/issues/99
+    # https://gitlab.freedesktop.org/xdg/xdg-specs/-/issues/54
+    # https://github.com/Vladimir-csp/xdg-terminal-exec
+    shift
+    exec exo-open --launch TerminalEmulator "$@"
+  '')
   tab-rs zellij
   starship
   exa lsd bat ripgrep ripgrep-all fd
