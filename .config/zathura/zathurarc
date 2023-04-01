@@ -1,0 +1,4 @@
+set window-height 1144
+set window-width 960
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
