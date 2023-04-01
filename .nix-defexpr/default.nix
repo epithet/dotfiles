@@ -1,6 +1,21 @@
 with import <nixpkgs> {}; [
 
-  alacritty # sakura wezterm foot
+  (writeTextFile {
+    name = "DefaultTerminalEmulator.desktop";
+    text = ''
+      [Desktop Entry]
+      NoDisplay=true
+      Version=1.0
+      Encoding=UTF-8
+      Type=X-XFCE-Helper
+      Name=Default Terminal Emulator
+      X-XFCE-Category=TerminalEmulator
+      X-XFCE-Commands=${alacritty}/bin/alacritty
+      X-XFCE-CommandsWithParameter=${alacritty}/bin/alacritty --command %s
+      Icon=org.xfce.terminalemulator
+    '';
+    destination = "/share/xfce4/helpers/DefaultTerminalEmulator.desktop";
+  })
   (writeShellScriptBin "gnome-terminal" ''
     # https://gitlab.xfce.org/xfce/exo/-/issues/99
     # https://gitlab.freedesktop.org/xdg/xdg-specs/-/issues/54

@@ -1,4 +1,4 @@
-TerminalEmulator=custom-TerminalEmulator
 WebBrowser=firefox
 FileManager=thunar
+TerminalEmulator=DefaultTerminalEmulator
 
