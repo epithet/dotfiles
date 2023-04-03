@@ -78,6 +78,9 @@ with import <nixpkgs> {};
       wmctrl
       gebaar-libinput
 
+      mate.engrampa
+      zip unzip
+
     ];
     # cf. nixpkgs/nixos/modules/config/xdg/mime.nix
     postBuild = ''
