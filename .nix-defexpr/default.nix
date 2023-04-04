@@ -56,6 +56,7 @@ with import <nixpkgs> {};
           start = with vimPlugins; [
             vim-nix
             nvim-lspconfig
+            editorconfig-nvim # remove with nvim 0.9
           ];
         };
       }))
