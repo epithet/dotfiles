@@ -19,6 +19,7 @@ alias lt="lsd -l --total-size"
 alias tree="lsd --tree --icon=always"
 alias less="less -S"
 alias grep="grep --color=auto"
+alias info="info --vi-keys"
 
 export HISTCONTROL=ignorespace:ignoredups
 
