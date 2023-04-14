@@ -85,24 +85,22 @@ builtins.removeAttrs rec {
   programs.thunar.plugins = [ pkgs.xfce.thunar-archive-plugin ];
 
   fonts = {
-    #enableFontDir = true;
+    #fontDir.enable = true;
     #enableGhostscriptFonts = true;
     fonts = with pkgs; [
       #corefonts # unfree
       dejavu_fonts
-      #fira fira-go fira-mono fira-code fira-code-symbols
-      (nerdfonts.override { fonts = [
-        "DejaVuSansMono"
-        "DroidSansMono"
-        "FantasqueSansMono"
-        "FiraCode"
-        "Inconsolata"
-        "JetBrainsMono"
-        "UbuntuMono"
-      ]; })
+      jetbrains-mono
+      fira-mono
+      inconsolata
+      ubuntu_font_family
+      fantasque-sans-mono
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
+      (nerdfonts.override { fonts = [
+        "NerdFontsSymbolsOnly"
+      ]; })
     ];
   };
 
