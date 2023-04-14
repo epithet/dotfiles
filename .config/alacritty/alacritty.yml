@@ -1,11 +1,11 @@
 window:
   dimensions:
-    columns: 80
-    lines: 25
+    columns: 106
+    lines: 26
   decorations: full
   opacity: 1.0
 font:
-  size: 7.5
+  size: 7
   normal:
     family: JetBrainsMono Nerd Font
     style: Regular
