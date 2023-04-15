@@ -39,6 +39,8 @@ with import <nixpkgs> {};
       binutils # strings needed for less (binary files)
       bubblewrap
       xclip # needed for neovim "+y and "+p
+      rlwrap
+      libnotify # notify-send
 
       rofi
       rofimoji
@@ -47,7 +49,7 @@ with import <nixpkgs> {};
       firefox surf # w3m lynx elinks browsh (jumanji?)
       zathura
       # mutt aerc
-      vlc
+      vlc mpv
 
       gnome.simple-scan
 
@@ -70,6 +72,8 @@ with import <nixpkgs> {};
       gitui tig
       git-ftp
       meld
+
+      dfeet
 
       zettlr
 
