@@ -51,6 +51,7 @@ with import <nixpkgs> {};
 
       gnome.simple-scan
 
+      neovide
       (vimUtils.packDir({
         myNvimPlugins = {
           start = with vimPlugins; [

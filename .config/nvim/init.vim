@@ -4,3 +4,5 @@ set diffopt+=vertical
 set path+=** " e.g. :find *.txt<tab>
 set packpath^=~/.nix-profile
 lua require('lsp')
+
+set guifont=JetBrains\ Mono:h7
