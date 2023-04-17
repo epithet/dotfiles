@@ -87,6 +87,10 @@ with import <nixpkgs> {};
       mate.engrampa
       zip unzip
 
+      duc
+      du-dust
+      ncdu
+
     ];
     # cf. nixpkgs/nixos/modules/config/xdg/mime.nix
     postBuild = ''
