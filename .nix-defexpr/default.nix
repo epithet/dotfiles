@@ -41,6 +41,7 @@ with import <nixpkgs> {};
       xclip # needed for neovim "+y and "+p
       rlwrap
       libnotify # notify-send
+      qrencode zbar
 
       rofi
       rofimoji

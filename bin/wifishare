@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+# https://github.com/zxing/zxing/wiki/Barcode-Contents#wi-fi-network-config-android-ios-11
+
+ssid="$(nmcli -t -f active,ssid dev wifi |egrep -m1 '^yes' |cut -d\: -f2 \
+        |sed 's/\([:;,"\\]\)/\\\1/g')"
+type="$(nmcli -g 802-11-wireless-security.key-mgmt connection show "$ssid" \
+        |awk '/wpa/{print"WPA";next}/wep/{print"WEP";next}')"
+pass="$(nmcli -g 802-11-wireless-security.psk -s connection show "$ssid" \
+        |sed 's/\([:;,"\\]\)/\\\1/g')"
+hide="$(nmcli -g 802-11-wireless.hidden connection show "$ssid" \
+        |awk '/yes/{print"true";next}{print"false"}')"
+conn="WIFI:S:$ssid;T:$type;P:$pass;H:$hide;;"
+qrencode -tUTF8 "$conn"
