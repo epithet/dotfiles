@@ -61,6 +61,7 @@ with import <nixpkgs> {};
             vim-nix
             nvim-lspconfig
             editorconfig-nvim # remove with nvim 0.9
+            emmet-vim
           ];
         };
       }))
