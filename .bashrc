@@ -13,9 +13,9 @@ eval "$(complete -p |awk '/ git$/{sub(/ git$/," dots");print}')"
 
 alias forgetpws="systemctl --user stop gpg-agent"
 alias ..="cd .."
-alias ls="lsd"
-alias l.="lsd -d .*"
-alias lt="lsd -l --total-size"
+alias ls="lsd --color=auto" # for --color=always use `lsd`
+alias l.="lsd --color=auto -d .*"
+alias lt="lsd --color=auto -l --total-size"
 alias tree="lsd --tree --icon=always"
 alias less="less -S"
 alias grep="grep --color=auto"

@@ -1,6 +1,6 @@
 #hyperlink: always
 color:
-  when: always
+  when: always # for color=auto use `ls`
 icons:
   when: never
 date: '+%d.%m.%y'
