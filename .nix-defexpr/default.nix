@@ -27,6 +27,7 @@ with import <nixpkgs> {};
         shift
         exec exo-open --launch TerminalEmulator "$@"
       '')
+      alacritty
       tab-rs zellij
       starship
       exa lsd bat ripgrep ripgrep-all fd
