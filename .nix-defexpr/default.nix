@@ -28,7 +28,7 @@ with import <nixpkgs> {};
         exec exo-open --launch TerminalEmulator "$@"
       '')
       alacritty
-      tab-rs zellij
+      tmux tab-rs zellij
       starship
       exa lsd bat ripgrep ripgrep-all fd
       procs htop lsof # lsof needed for htop 'l'

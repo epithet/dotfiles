@@ -2,7 +2,7 @@
 
 pid=$(pgrep -f "alacritty --class quake")
 if [ -z $pid ]; then
-    alacritty --class quake -t ' ' -o window.startup_mode=maximized -o window.decorations=none &
+    alacritty --class quake -t ' ' -o window.startup_mode=maximized -o window.decorations=none -e tmux &
 else
     id=$(wmctrl -lp |awk '$3=="'$pid'"{print$1;exit}')
     if ! xprop -id $id _NET_WM_STATE |grep -q FOCUSED; then
