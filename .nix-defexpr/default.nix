@@ -67,6 +67,21 @@ with import <nixpkgs> {};
         '';
         destination = "/share/xfce4/helpers/NeoMutt.desktop";
       })
+      (let
+        src = fetchFromGitLab {
+          domain = "salsa.debian.org";
+          owner = "debian";
+          repo = "mailcap";
+          rev = "debian/3.70";
+          sha256 = "sha256-p85tQmHacoBwcjkxIc/Bc2hf89tWXTLijfwmQ9kmg54=";
+        };
+      in
+      runCommand "run-mailcap" {} ''
+        install -m u=rx -D -t $out/bin ${src}/run-mailcap
+        substituteInPlace $out/bin/run-mailcap --replace "/usr/bin/perl" "${perl}/bin/perl"
+        mkdir -p $out/share/man/man1
+        gzip --stdout ${src}/run-mailcap.man >$out/share/man/man1/run-mailcap.1.gz
+      '')
 
       zathura
       vlc mpv
