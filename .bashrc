@@ -20,6 +20,7 @@ alias tree="lsd --tree --icon=always"
 alias less="less -S"
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
+alias mutt="neomutt"
 
 export HISTCONTROL=ignorespace:ignoredups
 

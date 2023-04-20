@@ -1,4 +1,5 @@
 WebBrowser=firefox
 FileManager=thunar
 TerminalEmulator=DefaultTerminalEmulator
+MailReader=NeoMutt
 

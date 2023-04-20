@@ -48,9 +48,27 @@ with import <nixpkgs> {};
       rofimoji
       xfce.xfdashboard
 
-      firefox surf # w3m lynx elinks browsh (jumanji?)
+      firefox surf w3m lynx # elinks browsh (jumanji?)
+      neomutt # aerc
+      (writeTextFile {
+        name = "NeoMutt.desktop";
+        text = ''
+          [Desktop Entry]
+          NoDisplay=true
+          Version=1.0
+          Encoding=UTF-8
+          Type=X-XFCE-Helper
+          Name=NeoMutt
+          X-XFCE-Category=MailReader
+          X-XFCE-Binaries=neomutt;
+          X-XFCE-Commands=exo-open --launch TerminalEmulator %B;
+          X-XFCE-CommandsWithParameter=exo-open --launch TerminalEmulator ${python3Minimal}/bin/python3 ${xfce.xfce4-settings}/lib/xfce4/xfce4-compose-mail mutt %B "mailto:%s";
+          Icon=applications-mail
+        '';
+        destination = "/share/xfce4/helpers/NeoMutt.desktop";
+      })
+
       zathura
-      # mutt aerc
       vlc mpv
 
       gnome.simple-scan
