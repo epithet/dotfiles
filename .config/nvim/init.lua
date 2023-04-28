@@ -77,6 +77,25 @@ require('packer').startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    -- {{{ VimWiki
+    use {
+        "vimwiki/vimwiki",
+        config = function()
+            vim.g.vimwiki_list = {{
+                path = "~/docs",
+                syntax = "markdown",
+                ext = ".md",
+            }}
+            vim.keymap.set("n", "<leader>ww", function()
+                --"<cmd>cd `=vimwiki_list[0]['path']`<cr><cmd>VimwikiIndex<cr>",
+                --"<cmd>exe 'cd' fnameescape(vimwiki_list[0]['path'])<cr><cmd>VimwikiIndex<cr>",
+                vim.api.nvim_set_current_dir(vim.g.vimwiki_list[1]["path"])
+                vim.api.nvim_command("VimwikiIndex")
+            end)
+        end,
+    }
+    -- }}} VimWiki
+
     use "mattn/emmet-vim"
 
     -- {{{ LSP
