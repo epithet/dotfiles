@@ -186,6 +186,7 @@ builtins.removeAttrs rec {
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
         ];
+        # enable optional plugins with `:packadd`
         opt = [
           vim-nix
         ];
