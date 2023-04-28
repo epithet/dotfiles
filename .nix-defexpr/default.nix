@@ -112,8 +112,7 @@ in
           start = with master.vimPlugins; [
             tmux-nvim
             vim-nix
-            nvim-lspconfig
-            emmet-vim
+            packer-nvim
           ];
         };
       }))

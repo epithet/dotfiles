@@ -73,4 +73,70 @@ vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
 vim.opt.packpath:prepend("~/.nix-profile")
 
-require("lsp")
+require('packer').startup(function(use)
+    -- Packer can manage itself
+    use "wbthomason/packer.nvim"
+
+    use "mattn/emmet-vim"
+
+    -- {{{ LSP
+    use {
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v2.x",
+        requires = {
+            -- lsp support
+            {"neovim/nvim-lspconfig"}, -- required
+            -- mason is not recommended on NixOS:
+            -- https://nixos.wiki/wiki/Packaging/Binaries
+            --{"williamboman/mason.nvim"},
+            --{"williamboman/mason-lspconfig.nvim"},
+
+            -- autocompletion
+            {"hrsh7th/nvim-cmp"}, -- required
+            {"hrsh7th/cmp-nvim-lsp"}, -- required
+            {"hrsh7th/cmp-nvim-lua"},
+            {"hrsh7th/cmp-buffer"},
+            --{"hrsh7th/cmp-path"},
+            --{"saadparwaiz1/cmp_luasnip"},
+
+            -- snippets
+            {"L3MON4D3/LuaSnip"}, -- required
+            --{"rafamadriz/friendly-snippets"},
+        },
+        config = function()
+            local lsp = require("lsp-zero").preset({})
+
+            lsp.on_attach(function(_, bufnr)
+                lsp.default_keymaps({buffer = bufnr})
+            end)
+
+            -- When you don't have mason.nvim installed
+            -- You'll need to list the servers installed in your system
+            lsp.setup_servers({
+                "rnix",
+                "clangd",
+                "rust_analyzer",
+            })
+
+            require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+
+            lsp.setup()
+
+            local cmp = require("cmp")
+            cmp.setup({
+                mapping = {
+                    ["<CR>"] = cmp.mapping.confirm({select = false}),
+                },
+                sources = {
+                    --{name = "path"},
+                    {name = "nvim_lsp"},
+                    {name = "buffer", keyword_length = 3},
+                    {name = "luasnip", keyword_length = 2},
+                },
+            })
+
+            vim.opt.signcolumn = "auto"
+        end
+    }
+    -- }}} LSP
+end)
