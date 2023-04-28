@@ -177,7 +177,9 @@ builtins.removeAttrs rec {
     configure = {
       customRC = ''
         set ts=4 sw=4 sts=0 smarttab expandtab autoindent
-        if filereadable(expand("~/.config/nvim/init.vim"))
+        if filereadable(expand('~/.config/nvim/init.lua'))
+          source ~/.config/nvim/init.lua
+        elseif filereadable(expand('~/.config/nvim/init.vim'))
           source ~/.config/nvim/init.vim
         endif
       '';
