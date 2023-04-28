@@ -1,4 +1,7 @@
 with import <nixpkgs> {};
+let
+  master = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/244a2f399fa62bea8580b6c8518e9a0d0603a383.tar.gz) {}; # 2023-04-24 → Neovim 0.9
+in
 {
   myPackages = buildEnv {
     name = "my-packages";
@@ -88,13 +91,17 @@ with import <nixpkgs> {};
 
       gnome.simple-scan
 
+      master.neovim
+      (runCommandLocal "vi-link" {} ''
+        mkdir -p $out/bin
+        ln -s ${master.neovim}/bin/nvim $out/bin/vi
+      '')
       neovide
       (vimUtils.packDir({
         myNvimPlugins = {
-          start = with vimPlugins; [
+          start = with master.vimPlugins; [
             vim-nix
             nvim-lspconfig
-            editorconfig-nvim # remove with nvim 0.9
             emmet-vim
           ];
         };

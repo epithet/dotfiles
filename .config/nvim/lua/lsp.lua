@@ -2,7 +2,7 @@
 local lspconfig = require('lspconfig')
 local cfg = { settings = { Lua = { diagnostics = { globals = { 'vim' } } } } }
 lspconfig.rnix.setup(cfg)
-lspconfig.sumneko_lua.setup(cfg)
+lspconfig.lua_ls.setup(cfg)
 lspconfig.clangd.setup(cfg)
 lspconfig.rust_analyzer.setup(cfg)
 
