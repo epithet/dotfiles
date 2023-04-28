@@ -31,7 +31,6 @@ in
         exec exo-open --launch TerminalEmulator "$@"
       '')
       alacritty
-      tmux tab-rs zellij
       starship
       exa lsd bat ripgrep ripgrep-all fd
       procs htop lsof # lsof needed for htop 'l'
@@ -91,6 +90,17 @@ in
 
       gnome.simple-scan
 
+      tab-rs zellij
+      (writeShellScriptBin "tmux" ''
+        ${master.tmux}/bin/tmux -f ${writeTextFile {
+          name = "tmux.conf";
+          text = with master.tmuxPlugins; ''
+            source-file ~/.config/tmux/tmux.conf
+            run-shell ${sensible.rtp}
+          '';
+        }} "$@"
+      '')
+
       master.neovim
       (runCommandLocal "vi-link" {} ''
         mkdir -p $out/bin
@@ -100,6 +110,7 @@ in
       (vimUtils.packDir({
         myNvimPlugins = {
           start = with master.vimPlugins; [
+            tmux-nvim
             vim-nix
             nvim-lspconfig
             emmet-vim
