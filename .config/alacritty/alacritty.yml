@@ -18,3 +18,5 @@ font:
   bold_italic:
     family: JetBrains Mono
     style: Bold Italic
+bell:
+  duration: 10
