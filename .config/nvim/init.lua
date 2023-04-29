@@ -148,6 +148,32 @@ require('packer').startup(function(use)
 
     use "mattn/emmet-vim"
 
+    -- {{{ tree-sittter
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+            ts_update()
+        end,
+        config = function()
+            require'nvim-treesitter.configs'.setup {
+                ensure_installed = {
+                    "c", "lua", "vim", "vimdoc", "query", -- these 5 are mandatory
+                    "rust",
+                    "javascript",
+                    "typescript",
+                },
+                sync_install = false,
+                auto_install = false,
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
+            }
+        end
+    }
+    -- }}} tree-sittter
+
     -- {{{ LSP
     use {
         "VonHeikemen/lsp-zero.nvim",
@@ -208,4 +234,98 @@ require('packer').startup(function(use)
         end
     }
     -- }}} LSP
+
+    -- {{{ DAP
+    use {
+        "mfussenegger/nvim-dap",
+        config = function()
+            local dap = require("dap")
+            dap.adapters.lldb = {
+                type = "executable",
+                command = "/home/seb/.nix-profile/bin/lldb-vscode", -- adjust as needed
+                name = "lldb",
+            }
+
+            local function lldb(get_program)
+                return {
+                    name = "Launch lldb",
+                    type = "lldb", -- matches the adapter
+                    request = "launch", -- could also attach to a currently running process
+                    program = get_program or function()
+                        return vim.fn.input(
+                            "Path to executable: ",
+                            vim.fn.getcwd() .. "/",
+                            "file"
+                        )
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopOnEntry = false,
+                    args = {},
+                    runInTerminal = false,
+                }
+            end
+
+            dap.configurations.rust = {
+                lldb(function()
+                    local json = ""
+                    vim.fn.jobwait({
+                        vim.fn.jobstart("cargo read-manifest", {
+                            cwd = vim.fn.getcwd(),
+                            stdout_buffered = true,
+                            on_stdout = function(_, data)
+                                json = vim.fn.json_decode(data)
+                            end
+                        })
+                    })
+                    return vim.fs.dirname(json["manifest_path"]).."/target/debug/"..json["name"]
+                end),
+            }
+
+            vim.keymap.set("n", "<F5>", function() dap.continue() end)
+            vim.keymap.set("n", "<F6>", function() dap.disconnect(); dap.close(); end)
+            vim.keymap.set("n", "<F9>", dap.toggle_breakpoint)
+            vim.keymap.set("n", "<F10>", dap.step_over)
+            vim.keymap.set("n", "<F11>", dap.step_into)
+            vim.keymap.set("n", "<F12>", dap.step_out)
+
+            vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg=0, fg="#ff0000" })
+            vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg=0, fg="#0000ff" })
+            vim.api.nvim_set_hl(0, "DapStopped", { ctermbg=0, fg="#ffffff" })
+
+            vim.fn.sign_define("DapBreakpoint", { text="", texthl="DapBreakpoint", linehl="", numhl="" })
+            vim.fn.sign_define("DapBreakpointCondition", { text="ﳁ", texthl="DapBreakpoint", linehl="", numhl="" })
+            vim.fn.sign_define("DapBreakpointRejected", { text="", texthl="DapBreakpoint", linehl="", numhl= "" })
+            vim.fn.sign_define("DapLogPoint", { text="", texthl="DapLogPoint", linehl="", numhl= "" })
+            vim.fn.sign_define("DapStopped", { text="", texthl="DapStopped", linehl="", numhl= "" })
+        end,
+    }
+    -- }}} DAP
+
+    -- {{{ DAP UI
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = "mfussenegger/nvim-dap",
+        config = function()
+            local dapui = require("dapui")
+            dapui.setup()
+            local dap = require("dap")
+            dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+            dap.listeners.before.event_terminated["dapui_config"] = dapui.close
+            dap.listeners.before.event_exited["dapui_config"] = dapui.close
+        end
+    }
+    -- }}} DAP UI
+
+    -- {{{ DAP virtual text
+    use {
+        "theHamsta/nvim-dap-virtual-text",
+        requires = {
+            {"mfussenegger/nvim-dap"},
+            {"nvim-treesitter/nvim-treesitter"},
+        },
+        config = function()
+            require("nvim-dap-virtual-text").setup()
+        end,
+    }
+    -- }}} DAP virtual text
 end)
