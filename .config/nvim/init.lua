@@ -37,10 +37,6 @@ vim.keymap.set("n", "<Esc>", ":noh<cr> | :ccl<cr> | :echo<cr>")
 -- Allow gf to open non-existent files
 vim.keymap.set("n", "gf", ":edit <cfile><CR>")
 
--- Reselect visual selection after indenting
-vim.keymap.set("v", "<", "<gv")
-vim.keymap.set("v", ">", ">gv")
-
 -- keep cursor centered
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
