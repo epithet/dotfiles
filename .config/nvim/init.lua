@@ -32,7 +32,10 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 
 -- clear highlights and close quickfix
-vim.keymap.set("n", "<Esc>", ":noh<cr> | :ccl<cr> | :echo<cr>")
+vim.keymap.set("n", "<Esc>", function()
+    vim.cmd("nohlsearch")
+    vim.cmd("cclose")
+end, { silent = true })
 
 -- Allow gf to open non-existent files
 vim.keymap.set("n", "gf", ":edit <cfile><CR>")
