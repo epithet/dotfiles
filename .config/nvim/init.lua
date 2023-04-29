@@ -83,6 +83,15 @@ require('packer').startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    -- {{{ scroll bar
+    use {
+        "petertriho/nvim-scrollbar",
+        config = function()
+            require("scrollbar").setup()
+        end
+    }
+    -- }}} scroll bar
+
     -- {{{ nvim-tree
     use {
         "nvim-tree/nvim-tree.lua",
