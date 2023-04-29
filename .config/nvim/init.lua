@@ -166,6 +166,27 @@ require('packer').startup(function(use)
     }
     -- }}} harpoon
 
+    --- {{{ telescope
+    use {
+        "nvim-telescope/telescope.nvim",
+        branch = "0.1.x",
+        requires = {
+            -- :checkhealth telescope
+            -- programs: rg, fd
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-treesitter/nvim-treesitter"}, -- optional
+            {"nvim-tree/nvim-web-devicons"}, -- optional
+        },
+        config = function()
+            local builtin = require('telescope.builtin')
+            vim.keymap.set('n', '<leader>ff', builtin.find_files)
+            vim.keymap.set('n', '<leader>fg', builtin.live_grep)
+            vim.keymap.set('n', '<leader>fb', builtin.buffers)
+            vim.keymap.set('n', '<leader>fh', builtin.help_tags)
+        end,
+    }
+    --- }}} telescope
+
     use "mattn/emmet-vim"
 
     -- {{{ tree-sittter
