@@ -83,6 +83,8 @@ require('packer').startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    use "lukas-reineke/indent-blankline.nvim"
+
     -- {{{ scroll bar
     use {
         "petertriho/nvim-scrollbar",
