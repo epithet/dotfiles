@@ -69,6 +69,13 @@ vim.keymap.set("n", "<C-Down>", ":resize +1<CR>")
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
+-- Navigate windows from terminal mode (:help terminal-mode)
+-- TODO: to be integrated with tmux
+vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h")
+vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j")
+vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k")
+vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l")
+
 -- }}} key bindings
 
 vim.opt.packpath:prepend("~/.nix-profile")
@@ -95,6 +102,50 @@ require('packer').startup(function(use)
         end,
     }
     -- }}} VimWiki
+
+    -- {{{ harpoon
+    use {
+        "ThePrimeagen/harpoon",
+        requires = {
+            {"nvim-lua/plenary.nvim"},
+            {
+                "NvChad/nvterm",
+                config = function()
+                    require("nvterm").setup()
+                    local t = require("nvterm.terminal")
+                    vim.keymap.set({ "n", "t" }, "<A-i>", function() t.toggle "float" end)
+                    vim.keymap.set({ "n", "t" }, "<A-h>", function() t.toggle "horizontal" end)
+                    vim.keymap.set({ "n", "t" }, "<A-v>", function() t.toggle "vertical" end)
+                end,
+            },
+        },
+        config = function()
+            local mark = require("harpoon.mark")
+            local ui = require("harpoon.ui")
+            vim.keymap.set("n", "<leader>a", mark.add_file)
+            vim.keymap.set("n", "<leader>o", ui.toggle_quick_menu)
+            vim.keymap.set("n", "<A-j>", function() ui.nav_file(1) end)
+            vim.keymap.set("n", "<A-k>", function() ui.nav_file(2) end)
+            vim.keymap.set("n", "<A-l>", function() ui.nav_file(3) end)
+            vim.keymap.set("n", "<A-;>", function() ui.nav_file(4) end)
+            local cmd_ui = require("harpoon.cmd-ui")
+            vim.keymap.set("n", "<leader>i", cmd_ui.toggle_quick_menu)
+            --local term = require("harpoon.term")
+            --vim.keymap.set("n", "<A-n>", function() term.gotoTerminal(1) end)
+            --local t = { idx = 1, create_with = ":lua require('nvterm.terminal').send('', 'horizontal')" }
+            --vim.keymap.set("n", "<A-m>", function() term.sendCommand(t, 1); term.sendCommand(1, "\n") end)
+            local harpoon = require('harpoon')
+            local function send_cmd(idx)
+                local cmd = harpoon.get_term_config().cmds[idx]
+                require('nvterm.terminal').send(cmd, 'horizontal')
+            end
+            vim.keymap.set({ "n", "t" }, "<A-m>", function() send_cmd(1) end)
+            vim.keymap.set({ "n", "t" }, "<A-,>", function() send_cmd(2) end)
+            vim.keymap.set({ "n", "t" }, "<A-.>", function() send_cmd(3) end)
+            vim.keymap.set({ "n", "t" }, "<A-/>", function() send_cmd(4) end)
+        end,
+    }
+    -- }}} harpoon
 
     use "mattn/emmet-vim"
 
