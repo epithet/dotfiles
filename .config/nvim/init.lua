@@ -83,6 +83,17 @@ require('packer').startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    -- {{{ nvim-tree
+    use {
+        "nvim-tree/nvim-tree.lua",
+        requires = "nvim-tree/nvim-web-devicons", -- optional
+        config = function()
+            require("nvim-tree").setup()
+            vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<cr>")
+        end
+    }
+    -- }}} nvim-tree
+
     -- {{{ VimWiki
     use {
         "vimwiki/vimwiki",
