@@ -48,7 +48,7 @@ vim.keymap.set("n", "N", "Nzz")
 
 -- Insertion/removal of a trailing ; or ,
 for _, x in pairs({ ";", "," }) do
-    vim.keymap.set("n", x..x, function()
+    vim.keymap.set("n", "<leader>"..x..x, function()
         vim.cmd.norm("$")
         if string.byte(x) == string.byte(vim.fn.getline("."), vim.fn.col(".")) then
             vim.cmd.norm("x")
