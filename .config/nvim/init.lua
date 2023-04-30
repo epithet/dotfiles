@@ -85,6 +85,75 @@ require('packer').startup(function(use)
 
     use "lukas-reineke/indent-blankline.nvim"
 
+    -- {{{ status line
+    use {
+        "nvim-lualine/lualine.nvim",
+        requires = {
+            {"nvim-tree/nvim-web-devicons"},
+            {"arkav/lualine-lsp-progress"},
+        },
+        config = function()
+            vim.go.showmode = false
+            vim.go.laststatus = 3 -- config.globalstatus doesn't seem to work
+            require("lualine").setup({
+                globalstatus = true,
+                icons_enabled = true,
+                sections = {
+                    lualine_a = {
+                        { "mode", fmt = function(str) return str:sub(1,1) end }
+                    },
+                    lualine_b = {
+                        { "branch", icon = " " },
+                        "diff",
+                        "diagnostics",
+                    },
+                    lualine_c = {
+                        {
+                            "filename",
+                            path = 1,
+                            file_status = true,
+                            newfile_status = true,
+                            symbols = {
+                                modified = "⚪",
+                                readonly = "🔒",
+                                unnamed = "◌",
+                                newfile = "✳",
+                            },
+                        },
+                    },
+                    lualine_x = {
+                        {
+                            "lsp_progress",
+                            display_components = { "spinner", { "title", "percentage" } },
+                            spinner_symbols = { "🌑 ", "🌒 ", "🌓 ", "🌔 ", "🌕 ", "🌖 ", "🌗 ", "🌘 " },
+                        },
+                        --"encoding",
+                        function()
+                            local enc = vim.opt.fileencoding:get()
+                            return enc ~= "utf-8" and enc or ""
+                        end,
+                        {
+                            "fileformat",
+                            symbols = {
+                                unix = "", --"", -- e712
+                                dos = " ", -- e70f
+                                mac = " ", -- e711
+                            },
+                        },
+                        {
+                            "filetype",
+                            icon_only = true,
+                            --icons_enabled = true,
+                        },
+                    },
+                    lualine_y = {  },
+                    lualine_z = { "location" },
+                },
+            })
+        end,
+    }
+    -- }}} status line
+
     -- {{{ scroll bar
     use {
         "petertriho/nvim-scrollbar",
