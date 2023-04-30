@@ -185,7 +185,11 @@ require('packer').startup(function(use)
     use {
         "petertriho/nvim-scrollbar",
         config = function()
-            require("scrollbar").setup()
+            require("scrollbar").setup({
+                handle = {
+                    color = "white",
+                },
+            })
         end
     }
     -- }}} scroll bar
