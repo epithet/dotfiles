@@ -83,6 +83,33 @@ require('packer').startup(function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
 
+    -- {{{ theme
+    use {
+        "nordtheme/vim", as = "nord",
+        config = function()
+            vim.opt.termguicolors = true
+            vim.cmd.colorscheme "nord"
+            vim.api.nvim_set_hl(0, "Normal", { bg = "#1d1f21" }) -- background (Alacritty standard)
+            vim.api.nvim_set_hl(0, "Folded", { fg = "#D8DEE9", bg = "#4C566A" })
+            vim.api.nvim_set_hl(0, "ColorColumn", { fg = "Magenta", bg = "#21262e" })
+            vim.api.nvim_set_hl(0, "TabLineFill", { fg="Magenta", bg="#3B4252" })
+            vim.api.nvim_set_hl(0, "TabLine", { fg="#D8DEE9", bg="#3B4252" })
+            vim.api.nvim_set_hl(0, "TabLineSel", { fg="#D8DEE9", bg="#1d1f21" })
+            -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
+            -- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
+            -- which is based on: https://github.com/decaycs/decay.nvim
+            -- :help treesitter-highlight-groups
+            -- ~/.config/nvim/queries/rust/highlights.scm
+            vim.api.nvim_set_hl(0, "@storageclass.lifetime.rust", { fg = "#e26c7c" }) -- lifetimes
+            vim.api.nvim_set_hl(0, "@operator.questionmark.rust", { fg = "#e26c7c" }) -- postfix ?
+            vim.api.nvim_set_hl(0, "@operator.ref.rust",          { fg = "#e9a180" }) -- &, *
+            vim.api.nvim_set_hl(0, "@type.qualifier.rust",        { fg = "#e9a180" }) -- ref, mut
+        end
+    }
+    use { "catppuccin/nvim", as = "catppuccin" }
+    use { "rose-pine/neovim", as = "rose-pine" }
+    -- }}} theme
+
     use "lukas-reineke/indent-blankline.nvim"
 
     -- {{{ status line
