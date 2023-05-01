@@ -268,7 +268,7 @@ require('packer').startup(function(use)
     }
     -- }}} harpoon
 
-    --- {{{ telescope
+    -- {{{ telescope
     use {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
@@ -287,7 +287,7 @@ require('packer').startup(function(use)
             vim.keymap.set('n', '<leader>fh', builtin.help_tags)
         end,
     }
-    --- }}} telescope
+    -- }}} telescope
 
     use "mattn/emmet-vim"
 
