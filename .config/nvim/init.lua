@@ -229,7 +229,7 @@ require('packer').startup(function(use)
         requires = "nvim-tree/nvim-web-devicons", -- optional
         config = function()
             require("nvim-tree").setup()
-            vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<cr>")
+            vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<cr>", { silent = true })
         end
     }
     -- }}} nvim-tree
