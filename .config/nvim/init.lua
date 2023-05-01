@@ -11,9 +11,10 @@ vim.opt.breakindent = true
 vim.opt.showbreak = ">"
 vim.opt.colorcolumn = "80,100"
 vim.opt.list = true
-vim.opt.listchars:append({ tab = "» ", nbsp = "⊙", trail = "∙" })
+vim.opt.listchars:append({ tab = " ⧽", nbsp = "⊙", trail = "∙" })
 vim.opt.path:append("**") -- e.g. :find *.txt<tab>
 vim.opt.diffopt:append("vertical") -- :diffsplit
+vim.opt.shortmess:append("I") -- :intro only flickering on startup due to lualine
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -89,12 +90,17 @@ require('packer').startup(function(use)
         config = function()
             vim.opt.termguicolors = true
             vim.cmd.colorscheme "nord"
-            vim.api.nvim_set_hl(0, "Normal", { bg = "#1d1f21" }) -- background (Alacritty standard)
+            vim.api.nvim_set_hl(0, "Normal", { bg = "#1d1f21" }) -- background (Alacritty default)
+            vim.api.nvim_set_hl(0, "DapUINormal", { link = "Normal" })
+            vim.api.nvim_set_hl(0, "VertSplit", { fg = "#4C566A", bg = "#1d1f21" })
+            vim.api.nvim_set_hl(0, "SignColumn", { fg = "#4C566A", bg = "#1d1f21" })
             vim.api.nvim_set_hl(0, "Folded", { fg = "#D8DEE9", bg = "#4C566A" })
-            vim.api.nvim_set_hl(0, "ColorColumn", { fg = "Magenta", bg = "#21262e" })
-            vim.api.nvim_set_hl(0, "TabLineFill", { fg="Magenta", bg="#3B4252" })
-            vim.api.nvim_set_hl(0, "TabLine", { fg="#D8DEE9", bg="#3B4252" })
-            vim.api.nvim_set_hl(0, "TabLineSel", { fg="#D8DEE9", bg="#1d1f21" })
+            vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#21262e" })
+            vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#3B4252" })
+            vim.api.nvim_set_hl(0, "TabLine", { fg = "#88C0D0", bg = "#3B4252", italic = true })
+            vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#88C0D0", fg = "#3B4252", bold = true })
+            vim.api.nvim_set_hl(0, "Title", { fg = "#D8DEE9" }) -- window counter in tab
+            vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#333333" })
             -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
             -- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
             -- which is based on: https://github.com/decaycs/decay.nvim
@@ -104,13 +110,23 @@ require('packer').startup(function(use)
             vim.api.nvim_set_hl(0, "@operator.questionmark.rust", { fg = "#e26c7c" }) -- postfix ?
             vim.api.nvim_set_hl(0, "@operator.ref.rust",          { fg = "#e9a180" }) -- &, *
             vim.api.nvim_set_hl(0, "@type.qualifier.rust",        { fg = "#e9a180" }) -- ref, mut
-        end
+        end,
     }
     use { "catppuccin/nvim", as = "catppuccin" }
     use { "rose-pine/neovim", as = "rose-pine" }
     -- }}} theme
 
-    use "lukas-reineke/indent-blankline.nvim"
+    -- {{{ indentation guides
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("indent_blankline").setup {
+                char_highlight_list = { "IndentBlanklineIndent1" },
+                --show_current_context = true,
+            }
+        end,
+    }
+    -- }}} indentation guides
 
     -- {{{ status line
     use {
