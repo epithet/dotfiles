@@ -452,7 +452,8 @@ require('packer').startup(function(use)
             local dapui = require("dapui")
             dapui.setup()
             local dap = require("dap")
-            dap.listeners.after.event_initialized["dapui_config"] = dapui.open
+            dap.listeners.after.event_initialized["dapui_config"] =
+                function() dapui.open { reset = true } end -- cf. issue #145
             dap.listeners.before.event_terminated["dapui_config"] = dapui.close
             dap.listeners.before.event_exited["dapui_config"] = dapui.close
         end
