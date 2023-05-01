@@ -198,15 +198,28 @@ require('packer').startup(function(use)
     -- }}} status line
 
     -- {{{ scroll bar
+    -- shows diagnostics etc, but
+    -- - currently doesn't work well with splits
+    -- - currently doesn't support mouse
+    --use {
+    --    "petertriho/nvim-scrollbar",
+    --    config = function()
+    --        require("scrollbar").setup({
+    --            handle = {
+    --                color = "white",
+    --            },
+    --        })
+    --    end,
+    --}
     use {
-        "petertriho/nvim-scrollbar",
+        "dstein64/nvim-scrollview",
         config = function()
-            require("scrollbar").setup({
-                handle = {
-                    color = "white",
-                },
+            vim.api.nvim_set_hl(0, "ScrollView", { bg = "white" })
+            require('scrollview').setup({
+                column = 1,
+                winblend = 50,
             })
-        end
+        end,
     }
     -- }}} scroll bar
 
