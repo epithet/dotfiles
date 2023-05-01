@@ -47,6 +47,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzz")
 vim.keymap.set("n", "N", "Nzz")
 
+-- move code
+vim.keymap.set("v", "<M-j>", ":m '>+1<cr>gv=gv")
+vim.keymap.set("v", "<M-k>", ":m '<-2<cr>gv=gv")
+
 -- Insertion/removal of a trailing ; or ,
 for _, x in pairs({ ";", "," }) do
     vim.keymap.set("n", "<leader>"..x..x, function()
