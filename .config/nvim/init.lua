@@ -129,6 +129,8 @@ require('packer').startup(function(use)
     }
     use { "catppuccin/nvim", as = "catppuccin" }
     use { "rose-pine/neovim", as = "rose-pine" }
+    use { "sainnhe/everforest" }
+    use { "sainnhe/sonokai" }
     -- }}} theme
 
     -- {{{ indentation guides
