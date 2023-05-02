@@ -102,6 +102,15 @@ in
           '';
         }} "$@"
       '')
+      (runCommandLocal "tmux-rest" {} ''
+        mkdir -p $out
+        for d in ${tmux}/*; do
+          if [ $(basename $d) != bin ]; then
+            cp -r $d $out/
+          fi
+        done
+      '')
+      tmux.man
 
       master.neovim
       (runCommandLocal "vi-link" {} ''
