@@ -92,9 +92,10 @@ in
 
       tab-rs zellij
       (writeShellScriptBin "tmux" ''
-        ${tmux}/bin/tmux -f ${writeTextFile {
+        TERM=screen-256color ${tmux}/bin/tmux -f ${writeTextFile {
           name = "tmux.conf";
           text = with tmuxPlugins; ''
+            set-option -ga terminal-overrides ",screen*:Tc"
             source-file ~/.config/tmux/tmux.conf
             run-shell ${sensible.rtp}
             run-shell ${nord.rtp}
