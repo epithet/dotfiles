@@ -82,6 +82,21 @@ vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l")
 
 -- }}} key bindings
 
+-- {{{ custom highlighting
+-- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
+-- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
+-- which is based on: https://github.com/decaycs/decay.nvim
+-- :help treesitter-highlight-groups
+-- ~/.config/nvim/queries/rust/highlights.scm
+local rust_hi = vim.api.nvim_create_augroup("rust_hi", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", { group = rust_hi, callback = function()
+    vim.api.nvim_set_hl(0, "@storageclass.lifetime.rust", { fg = "#e26c7c" }) -- lifetimes
+    vim.api.nvim_set_hl(0, "@operator.questionmark.rust", { fg = "#e26c7c" }) -- postfix ?
+    vim.api.nvim_set_hl(0, "@operator.ref.rust",          { fg = "#e9a180" }) -- &, *
+    vim.api.nvim_set_hl(0, "@type.qualifier.rust",        { fg = "#e9a180" }) -- ref, mut
+end })
+-- }}} custom highlighting
+
 vim.opt.packpath:prepend("~/.nix-profile")
 
 require('packer').startup(function(use)
@@ -94,26 +109,18 @@ require('packer').startup(function(use)
         config = function()
             vim.opt.termguicolors = true
             vim.cmd.colorscheme "nord"
-            vim.api.nvim_set_hl(0, "Normal", { bg = "#1d1f21" }) -- background (Alacritty default)
-            vim.api.nvim_set_hl(0, "DapUINormal", { link = "Normal" })
-            vim.api.nvim_set_hl(0, "VertSplit", { fg = "#4C566A", bg = "#1d1f21" })
-            vim.api.nvim_set_hl(0, "SignColumn", { fg = "#4C566A", bg = "#1d1f21" })
-            vim.api.nvim_set_hl(0, "Folded", { fg = "#D8DEE9", bg = "#4C566A" })
-            vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#21262e" })
-            vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#3B4252" })
-            vim.api.nvim_set_hl(0, "TabLine", { fg = "#88C0D0", bg = "#3B4252", italic = true })
-            vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#88C0D0", fg = "#3B4252", bold = true })
-            vim.api.nvim_set_hl(0, "Title", { fg = "#D8DEE9" }) -- window counter in tab
-            vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#333333" })
-            -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
-            -- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
-            -- which is based on: https://github.com/decaycs/decay.nvim
-            -- :help treesitter-highlight-groups
-            -- ~/.config/nvim/queries/rust/highlights.scm
-            vim.api.nvim_set_hl(0, "@storageclass.lifetime.rust", { fg = "#e26c7c" }) -- lifetimes
-            vim.api.nvim_set_hl(0, "@operator.questionmark.rust", { fg = "#e26c7c" }) -- postfix ?
-            vim.api.nvim_set_hl(0, "@operator.ref.rust",          { fg = "#e9a180" }) -- &, *
-            vim.api.nvim_set_hl(0, "@type.qualifier.rust",        { fg = "#e9a180" }) -- ref, mut
+            vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
+                if vim.g.colors_name ~= "nord" then return end
+                vim.api.nvim_set_hl(0, "Normal", { bg = "#1d1f21" }) -- background (Alacritty default)
+                vim.api.nvim_set_hl(0, "VertSplit", { fg = "#4C566A", bg = "#1d1f21" })
+                vim.api.nvim_set_hl(0, "SignColumn", { fg = "#4C566A", bg = "#1d1f21" })
+                vim.api.nvim_set_hl(0, "Folded", { fg = "#D8DEE9", bg = "#4C566A" })
+                vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#21262e" })
+                vim.api.nvim_set_hl(0, "TabLineFill", { bg = "#3B4252" })
+                vim.api.nvim_set_hl(0, "TabLine", { fg = "#88C0D0", bg = "#3B4252", italic = true })
+                vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#88C0D0", fg = "#3B4252", bold = true })
+                vim.api.nvim_set_hl(0, "Title", { fg = "#D8DEE9" }) -- window counter in tab
+            end })
         end,
     }
     use { "catppuccin/nvim", as = "catppuccin" }
@@ -128,6 +135,9 @@ require('packer').startup(function(use)
                 char_highlight_list = { "IndentBlanklineIndent1" },
                 --show_current_context = true,
             }
+            vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
+                vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#333333" })
+            end })
         end,
     }
     -- }}} indentation guides
@@ -218,11 +228,13 @@ require('packer').startup(function(use)
     use {
         "dstein64/nvim-scrollview",
         config = function()
-            vim.api.nvim_set_hl(0, "ScrollView", { bg = "white" })
             require('scrollview').setup({
                 column = 1,
                 winblend = 50,
             })
+            vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
+                vim.api.nvim_set_hl(0, "ScrollView", { bg = "white" })
+            end })
         end,
     }
     -- }}} scroll bar
@@ -464,9 +476,11 @@ require('packer').startup(function(use)
             vim.keymap.set("n", "<F11>", dap.step_into)
             vim.keymap.set("n", "<F12>", dap.step_out)
 
-            vim.api.nvim_set_hl(0, "DapBreakpoint", { ctermbg=0, fg="#ff0000" })
-            vim.api.nvim_set_hl(0, "DapLogPoint", { ctermbg=0, fg="#0000ff" })
-            vim.api.nvim_set_hl(0, "DapStopped", { ctermbg=0, fg="#ffffff" })
+            vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
+                vim.api.nvim_set_hl(0, "DapBreakpoint", { fg="#ff0000" })
+                vim.api.nvim_set_hl(0, "DapLogPoint", { fg="#0000ff" })
+                vim.api.nvim_set_hl(0, "DapStopped", { fg="#ffffff" })
+            end })
 
             vim.fn.sign_define("DapBreakpoint", { text="", texthl="DapBreakpoint", linehl="", numhl="" })
             vim.fn.sign_define("DapBreakpointCondition", { text="ﳁ", texthl="DapBreakpoint", linehl="", numhl="" })
@@ -489,6 +503,9 @@ require('packer').startup(function(use)
                 function() dapui.open { reset = true } end -- cf. issue #145
             dap.listeners.before.event_terminated["dapui_config"] = dapui.close
             dap.listeners.before.event_exited["dapui_config"] = dapui.close
+            vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
+                vim.api.nvim_set_hl(0, "DapUINormal", { link = "Normal" })
+            end })
         end
     }
     -- }}} DAP UI
