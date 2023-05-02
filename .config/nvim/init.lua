@@ -82,14 +82,18 @@ vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l")
 
 -- }}} key bindings
 
+-- put auto-commands in augroup after clearing it
+-- so that the auto-commands are attached only once,
+-- even if this file is re-sourced
+local g = vim.api.nvim_create_augroup("my-augroup", { clear = true })
+
 -- {{{ custom highlighting
 -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
 -- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
 -- which is based on: https://github.com/decaycs/decay.nvim
 -- :help treesitter-highlight-groups
 -- ~/.config/nvim/queries/rust/highlights.scm
-local rust_hi = vim.api.nvim_create_augroup("rust_hi", { clear = true })
-vim.api.nvim_create_autocmd("ColorScheme", { group = rust_hi, callback = function()
+vim.api.nvim_create_autocmd("ColorScheme", { group = g, callback = function()
     vim.api.nvim_set_hl(0, "@storageclass.lifetime.rust", { fg = "#e26c7c" }) -- lifetimes
     vim.api.nvim_set_hl(0, "@operator.questionmark.rust", { fg = "#e26c7c" }) -- postfix ?
     vim.api.nvim_set_hl(0, "@operator.ref.rust",          { fg = "#e9a180" }) -- &, *
