@@ -364,6 +364,17 @@ require('packer').startup(function(use)
 
     use "mattn/emmet-vim"
 
+    -- {{{ comments
+    use {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup({
+                padding = false,
+            })
+        end
+    }
+    -- }}} comments
+
     -- {{{ tree-sittter
     use {
         "nvim-treesitter/nvim-treesitter",
