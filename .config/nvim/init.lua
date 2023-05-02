@@ -74,7 +74,7 @@ vim.keymap.set("n", "<C-Left>", ":vertical resize -2<CR>")
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<CR>")
 
 -- Navigate windows from terminal mode (:help terminal-mode)
--- TODO: to be integrated with tmux
+-- NB: will be overridden later for tmux integration
 vim.keymap.set("t", "<C-h>", "<C-\\><C-N><C-w>h")
 vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j")
 vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k")
@@ -333,6 +333,28 @@ require('packer').startup(function(use)
         end,
     }
     -- }}} telescope
+
+    -- {{{ tmux
+    use {
+        "aserowy/tmux.nvim",
+        config = function ()
+            local tmux = require("tmux")
+            tmux.setup({
+                navigation = {
+                    enable_default_keybindings = true,
+                    cycle_navigation = false,
+                },
+                resize = {
+                    enable_default_keybindings = false,
+                },
+            })
+            vim.keymap.set("t", "<C-h>", tmux.move_left)
+            vim.keymap.set("t", "<C-j>", tmux.move_bottom)
+            vim.keymap.set("t", "<C-k>", tmux.move_top)
+            vim.keymap.set("t", "<C-l>", tmux.move_right)
+        end
+    }
+    -- }}} tmux
 
     use "mattn/emmet-vim"
 

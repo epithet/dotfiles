@@ -92,9 +92,9 @@ in
 
       tab-rs zellij
       (writeShellScriptBin "tmux" ''
-        ${master.tmux}/bin/tmux -f ${writeTextFile {
+        ${tmux}/bin/tmux -f ${writeTextFile {
           name = "tmux.conf";
-          text = with master.tmuxPlugins; ''
+          text = with tmuxPlugins; ''
             source-file ~/.config/tmux/tmux.conf
             run-shell ${sensible.rtp}
           '';
@@ -110,7 +110,6 @@ in
       (vimUtils.packDir({
         myNvimPlugins = {
           start = with master.vimPlugins; [
-            tmux-nvim
             vim-nix
             packer-nvim
           ];
