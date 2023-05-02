@@ -97,6 +97,7 @@ in
           text = with tmuxPlugins; ''
             source-file ~/.config/tmux/tmux.conf
             run-shell ${sensible.rtp}
+            run-shell ${nord.rtp}
           '';
         }} "$@"
       '')
