@@ -8,6 +8,7 @@ function append_to_path() {
 append_to_path ~/bin # ~ must be expanded for git-* extension commands
 
 alias dots="git --git-dir ~/.dotfiles --work-tree ~"
+alias stod="GIT_DIR=~/.dotfiles tig"
 . /run/current-system/sw/share/bash-completion/completions/git
 eval "$(complete -p |awk '/ git$/{sub(/ git$/," dots");print}')"
 
