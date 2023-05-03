@@ -1,0 +1,75 @@
+set charset = "utf-8"
+set send_charset = "utf-8"
+source ~/.config/neomutt/accounts
+set mailcap_path = ~/.config/neomutt/mailcap:$mailcap_path
+set alias_file = ~/.config/neomutt/aliases
+source ~/.config/neomutt/aliases
+set tmpdir = /run/user/`id -u` # tmpfs; neomutt 2023-01-25: renamed to `tmp_dir`
+
+set mime_type_query_command = "file --mime-type --brief %s"
+
+set ssl_force_tls = yes
+set ssl_starttls = no
+set timeout = 300
+set mail_check = 120
+set imap_check_subscribed
+set imap_keepalive = 300
+unset imap_passive
+set sort = reverse-date-received
+set date_format="%y-%m-%d"
+set index_format="%3C %Z %D %-20.20F (%?X?X& ? %?l?%3l&%3c?) %s"
+set pager_stop = yes # don't go to next message after paging all the way down
+
+bind pager j next-line
+bind pager k previous-line
+bind pager J next-undeleted
+bind pager K previous-undeleted
+bind pager,index <Space> half-down
+bind pager,index - half-up
+bind attach c view-pager # mnemonic: chars, copiousoutput(mailcap)
+bind index G imap-fetch-mail # overrides pop-fetch-mail
+
+# colors rely on 'nord' terminal theme
+
+color indicator     black cyan              # currently focussed message
+
+color normal        default default
+color index         brightblue default      "~N" # new
+color index         brightyellow default    "~F" # flagged
+color index         brightgreen default     "~T" # tagged
+color index         brightred default       "~D" # deleted
+color index_date    cyan default
+color index_size    cyan default
+
+color attachment    magenta default
+color signature     brightwhite default
+color search        brightred black
+
+color error         red default             # error messages
+color status        white brightblack       # status line
+color tree          white default           # thread tree arrows
+color tilde         cyan default            # blank line padding
+
+color hdrdefault    brightblue default
+color header        cyan default            "^From:"
+color header        cyan default            "^Subject:"
+
+color quoted        cyan default
+color quoted1       brightcyan default
+color quoted2       blue default
+color quoted3       green default
+color quoted4       yellow default
+color quoted5       red default
+
+color body          brightgreen default     "(https?|ftp)://[\-\.+,/%~_:?&=\#a-zA-Z0-9]+"
+color body          brightyellow default    "[\-\.+_a-zA-Z0-9]+@[\-\.a-zA-Z0-9]+"
+
+color body          default green           "Good signature"
+color body          default green           "^gpg: Good"
+color body          default brightred       "BAD signature"
+color body          default brightred       "^gpg: Bad"
+color body          default brightred       "^gpg: BAD"
+color body          default brightyellow    "^gpg: Note:"
+color body          default brightyellow    "^gpg: WARNING:"
+color body          default brightyellow    "^gpg: "
+mono  body          bold                    "^gpg:"
