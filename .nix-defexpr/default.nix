@@ -131,6 +131,7 @@ in
       clang-tools
       rust-analyzer cargo rustc
       lldb
+      nodejs
 
       gitui tig
       git-ftp
