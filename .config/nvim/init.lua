@@ -133,6 +133,26 @@ require('packer').startup(function(use)
     use { "sainnhe/sonokai" }
     -- }}} theme
 
+    -- {{{ #rrggbb colorizer
+    use {
+        "NvChad/nvim-colorizer.lua",
+        config = function()
+            require("colorizer").setup {
+                filetypes = { "*" },
+                buftypes = { },
+                user_default_options = {
+                    names = false,
+                    RGB = false,
+                    RRGGBB = true,
+                    RRGGBBAA = true,
+                    mode = "virtualtext",
+                    always_update = false, -- even if buffer is not focussed
+                }
+            }
+        end,
+    }
+    -- }}} #rrggbb colorizer
+
     -- {{{ indentation guides
     use {
         "lukas-reineke/indent-blankline.nvim",
