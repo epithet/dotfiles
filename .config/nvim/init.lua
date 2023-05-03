@@ -116,6 +116,7 @@ require('packer').startup(function(use)
             vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
                 if vim.g.colors_name ~= "nord" then return end
                 vim.api.nvim_set_hl(0, "Normal", { bg = "#1d1f21" }) -- background (Alacritty default)
+                vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
                 vim.api.nvim_set_hl(0, "VertSplit", { fg = "#4C566A", bg = "#1d1f21" })
                 vim.api.nvim_set_hl(0, "SignColumn", { fg = "#4C566A", bg = "#1d1f21" })
                 vim.api.nvim_set_hl(0, "Folded", { fg = "#D8DEE9", bg = "#4C566A" })
@@ -124,6 +125,7 @@ require('packer').startup(function(use)
                 vim.api.nvim_set_hl(0, "TabLine", { fg = "#88C0D0", bg = "#3B4252", italic = true })
                 vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#88C0D0", fg = "#3B4252", bold = true })
                 vim.api.nvim_set_hl(0, "Title", { fg = "#D8DEE9" }) -- window counter in tab
+                vim.api.nvim_set_hl(0, "mailcapSpecial", { link = "SpecialChar" })
             end })
         end,
     }
