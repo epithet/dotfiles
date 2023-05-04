@@ -126,6 +126,7 @@ require('packer').startup(function(use)
                 vim.api.nvim_set_hl(0, "TabLineSel", { bg = "#88C0D0", fg = "#3B4252", bold = true })
                 vim.api.nvim_set_hl(0, "Title", { fg = "#D8DEE9" }) -- window counter in tab
                 vim.api.nvim_set_hl(0, "mailcapSpecial", { link = "SpecialChar" })
+                vim.api.nvim_set_hl(0, "CurSearch", { bg = "#EBCB8B", fg = "#3B4252" })
             end })
         end,
     }
