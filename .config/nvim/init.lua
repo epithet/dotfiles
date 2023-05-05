@@ -15,6 +15,7 @@ vim.opt.listchars:append({ tab = "⧽⧽", nbsp = "⊙", trail = "∙" })
 vim.opt.path:append("**") -- e.g. :find *.txt<tab>
 vim.opt.diffopt:append("vertical") -- :diffsplit
 vim.opt.shortmess:append("I") -- :intro only flickering on startup due to lualine
+vim.opt.title = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
