@@ -284,6 +284,7 @@ require('packer').startup(function(use)
     use {
         "vimwiki/vimwiki",
         config = function()
+            vim.g.vimwiki_autowriteall = 0
             vim.g.vimwiki_list = {{
                 path = "~/docs",
                 syntax = "markdown",
