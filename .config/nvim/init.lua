@@ -295,6 +295,13 @@ require('packer').startup(function(use)
                 vim.api.nvim_set_current_dir(vim.g.vimwiki_list[1]["path"])
                 vim.api.nvim_command("VimwikiIndex")
             end)
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "vimwiki",
+                callback = function()
+                    vim.keymap.set("i", "<Tab>", "<Plug>VimwikiIncreaseLvlSingleItem", { buffer = 0 })
+                    vim.keymap.set("i", "<S-Tab>", "<Plug>VimwikiDecreaseLvlSingleItem", { buffer = 0 })
+                end,
+            })
         end,
     }
     -- }}} VimWiki
