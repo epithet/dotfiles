@@ -137,8 +137,11 @@ in
       git-ftp
       meld
 
+      gnumake
+
       dfeet
 
+      pandoc
       zettlr
 
       restic
