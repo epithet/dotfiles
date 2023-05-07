@@ -81,6 +81,75 @@ vim.keymap.set("t", "<C-j>", "<C-\\><C-N><C-w>j")
 vim.keymap.set("t", "<C-k>", "<C-\\><C-N><C-w>k")
 vim.keymap.set("t", "<C-l>", "<C-\\><C-N><C-w>l")
 
+-- Copy/Paste to/from tmux paste buffer
+-- https://stackoverflow.com/questions/45206818/pipe-partial-line-selection-through-external-command-in-vim
+local function get_selection(type)
+    -- https://github.com/neovim/neovim/pull/21115
+    -- https://stackoverflow.com/questions/1533565/how-to-get-visually-selected-text-in-vimscript
+    -- possible alternatives: getpos('v'), getpos('.'), getpos("'<"), getpos("'>")
+    local start, stop, text
+    if type == 'char' then
+        -- range defined by motion in mormal mode
+        start = vim.api.nvim_buf_get_mark(0, '[')
+        stop = vim.api.nvim_buf_get_mark(0, ']')
+        text = vim.api.nvim_buf_get_text(0, start[1]-1, start[2], stop[1]-1, stop[2]+1, {})
+    else
+        -- range defined by visual mode selection
+        start = vim.api.nvim_buf_get_mark(0, '<')
+        stop = vim.api.nvim_buf_get_mark(0, '>')
+        if type == 'v' then
+            text = vim.api.nvim_buf_get_text(0, start[1]-1, start[2], stop[1]-1, stop[2]+1, {})
+        elseif type == 'V' then
+            text = vim.api.nvim_buf_get_lines(0, start[1]-1, stop[1], false)
+        elseif type == '' then
+            text = {}
+            local startline = math.min(start[1], stop[1])
+            local stopline = math.max(start[1], stop[1])
+            local startcol = math.min(start[2], stop[2])
+            local stopcol = math.max(start[2], stop[2])
+            for line = startline-1, stopline-1 do
+                table.insert(text, vim.api.nvim_buf_get_text(0, line, startcol, line, stopcol+1, {})[1])
+            end
+        else
+            return nil
+        end
+    end
+    return table.concat(text, "\n")
+end
+-- nvim_exec2 not defined during "git commit"??
+--local set_opfunc = vim.fn[vim.api.nvim_exec2([[
+--    " https://github.com/neovim/neovim/issues/14157
+--    func s:set_opfunc(val)
+--        let &operatorfunc = a:val
+--    endfunc
+--    echon get(function('s:set_opfunc'), 'name')
+--]], { output = true }).output]
+_G.YankTmux = function(type)
+    if type == nil then
+        -- https://learnvimscriptthehardway.stevelosh.com/chapters/33.html
+        -- https://github.com/neovim/neovim/issues/14680
+        local old_func = vim.go.operatorfunc
+        _G.YankTmuxWrapper = function(t)
+            _G.YankTmux(t)
+            vim.go.operatorfunc = old_func
+            _G.YankTmuxWrapper = nil
+        end
+        vim.go.operatorfunc = "v:lua.YankTmuxWrapper"
+        vim.api.nvim_feedkeys("g@", "n", false)
+    else
+        local selection = get_selection(type)
+        if selection ~= nil then
+            vim.fn.system("tmux load-buffer -", selection)
+        end
+    end
+end
+--vim.keymap.set("n", "<leader>ty", ":set operatorfunc=v:lua.YankTmux<cr>g@", { silent = true })
+vim.keymap.set("n", "<leader>ty", _G.YankTmux, { silent = true })
+--vim.keymap.set("v", "<leader>ty", function() _G.YankTmux(vim.fn.mode()) end, { silent = true })
+vim.keymap.set("v", "<leader>ty", ":<C-u>call v:lua.YankTmux(visualmode())<cr>", { silent = true })
+vim.keymap.set("n", "<leader>tp", "a<C-r>=system('tmux save-buffer -')<cr><esc>")
+vim.keymap.set("n", "<leader>tP", "i<C-r>=system('tmux save-buffer -')<cr><esc>")
+
 -- }}} key bindings
 
 -- put auto-commands in augroup after clearing it
@@ -387,6 +456,9 @@ require('packer').startup(function(use)
         config = function ()
             local tmux = require("tmux")
             tmux.setup({
+                copy_sync = {
+                    enable = false,
+                },
                 navigation = {
                     enable_default_keybindings = true,
                     cycle_navigation = false,
