@@ -157,6 +157,23 @@ vim.keymap.set("n", "<leader>tP", "i<C-r>=system('tmux save-buffer -')<cr><esc>"
 -- even if this file is re-sourced
 local g = vim.api.nvim_create_augroup("my-augroup", { clear = true })
 
+vim.api.nvim_create_autocmd("BufEnter", { group = g, callback = function()
+    vim.opt_local.formatoptions:remove("o")
+end })
+
+vim.api.nvim_create_autocmd("FileType", { pattern = "text", group = g, callback = function()
+    vim.opt_local.linebreak = true
+    vim.opt_local.showbreak = "NONE"
+    vim.opt_local.listchars:append({ eol = "¶" })
+    vim.opt_local.formatoptions:append("r")
+    vim.opt_local.comments:remove({ "fb:-", "fb:*" })
+    vim.opt_local.comments:append({ "b:-", "b:*" })
+end })
+
+vim.api.nvim_create_autocmd("FileType", { pattern = "markdown", group = g, callback = function()
+    vim.opt_local.linebreak = true
+end })
+
 -- {{{ custom highlighting
 -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
 -- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
