@@ -45,8 +45,8 @@ vim.keymap.set("n", "gf", ":edit <cfile><CR>")
 -- keep cursor centered
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzz")
-vim.keymap.set("n", "N", "Nzz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
 -- move code
 vim.keymap.set("v", "<M-j>", ":m '>+1<cr>gv=gv")
