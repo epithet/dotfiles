@@ -721,4 +721,37 @@ require('packer').startup(function(use)
         end,
     }
     -- }}} DAP virtual text
+
+    -- {{{ neotest
+    use {
+        "nvim-neotest/neotest",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            "antoinemadec/FixCursorHold.nvim",
+            --"nvim-neotest/neotest-vim-test", "vim-test/vim-test",
+            "nvim-neotest/neotest-plenary",
+            "rouge8/neotest-rust",
+        },
+        config = function()
+            require("neotest").setup({
+                adapters = {
+                    --require("neotest-vim-test") { allow_file_types = { "rust" } },
+                    require("neotest-plenary"),
+                    require("neotest-rust") { dap_adapter = "lldb" },
+                },
+            })
+            local neotest = require("neotest")
+            vim.keymap.set("n", "<leader>tt", neotest.run.run)
+            vim.keymap.set("n", "<leader>tT", function() neotest.run.run({strategy = "dap"}) end)
+            vim.keymap.set("n", "<leader>tl", neotest.run.run_last)
+            vim.keymap.set("n", "<leader>tL", function() neotest.run.run_last({strategy = "dap"}) end)
+            vim.keymap.set("n", "<leader>tf", function() neotest.run.run(vim.fn.expand("%")) end)
+            vim.keymap.set("n", "<leader>tF", function() neotest.run.run({vim.fn.expand("%"), strategy = "dap"}) end)
+            vim.keymap.set("n", "<leader>to", neotest.output_panel.toggle)
+            vim.keymap.set("n", "<leader>ta", neotest.run.attach)
+            vim.keymap.set("n", "<leader>ts", neotest.run.stop)
+        end,
+    }
+    -- }}} neotest
 end)
