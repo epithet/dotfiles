@@ -52,6 +52,10 @@ in
 
       firefox surf w3m lynx # elinks browsh (jumanji?)
       neomutt # aerc
+      (runCommand "neomutt-pgpewrap" {} ''
+        mkdir -p $out/bin
+        cp ${neomutt}/libexec/neomutt/pgpewrap $out/bin
+      '')
       (writeTextFile {
         name = "NeoMutt.desktop";
         text = ''
