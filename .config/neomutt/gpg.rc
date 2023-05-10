@@ -2,6 +2,12 @@
 
 set crypt_use_gpgme = no
 
+set crypt_auto_sign = no
+set crypt_auto_encrypt = no
+set crypt_reply_sign = yes
+set crypt_reply_encrypt = yes
+set crypt_reply_sign_encrypted = yes
+
 # Command formats for gpg.
 #
 # Version notes:
