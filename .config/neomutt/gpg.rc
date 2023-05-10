@@ -8,6 +8,11 @@ set crypt_reply_sign = yes
 set crypt_reply_encrypt = yes
 set crypt_reply_sign_encrypted = yes
 
+# for good measure
+# seems to have no effect when gpg-agent is used
+# after all, caching passwords is gpg-agent's responsibility
+set pgp_timeout = 0
+
 # Command formats for gpg.
 #
 # Version notes:
