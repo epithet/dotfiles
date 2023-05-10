@@ -4,6 +4,7 @@ source ~/.config/neomutt/accounts
 set mailcap_path = ~/.config/neomutt/mailcap:$mailcap_path
 set alias_file = ~/.config/neomutt/aliases
 source ~/.config/neomutt/aliases
+source ~/.config/neomutt/gpg.rc
 set tmpdir = /run/user/`id -u` # tmpfs; neomutt 2023-01-25: renamed to `tmp_dir`
 
 set mime_type_query_command = "file --mime-type --brief %s"

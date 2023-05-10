@@ -1,5 +1,7 @@
 # -*-muttrc-*- vim: ft=neomuttrc
-#
+
+set crypt_use_gpgme = no
+
 # Command formats for gpg.
 #
 # Version notes:
