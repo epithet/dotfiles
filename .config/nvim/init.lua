@@ -582,7 +582,11 @@ require('packer').startup(function(use)
             --{"rafamadriz/friendly-snippets"},
         },
         config = function()
-            local lsp = require("lsp-zero").preset({})
+            local lsp = require("lsp-zero").preset({
+                manage_nvim_cmp = {
+                    set_extra_mappings = true,
+                },
+            })
 
             lsp.on_attach(function(_, bufnr)
                 lsp.default_keymaps({buffer = bufnr})
