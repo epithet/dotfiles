@@ -8,10 +8,8 @@ set crypt_reply_sign = yes
 set crypt_reply_encrypt = yes
 set crypt_reply_sign_encrypted = yes
 
-# for good measure
-# seems to have no effect when gpg-agent is used
-# after all, caching passwords is gpg-agent's responsibility
-set pgp_timeout = 0
+set pgp_use_gpg_agent = yes # caching passwords is gpg-agent's responsibility
+set pgp_timeout = 0 # for good measure, has no effect when gpg-agent is used
 
 # Command formats for gpg.
 #
@@ -72,7 +70,7 @@ set pgp_timeout = 0
 
 # decode application/pgp
 #
-set pgp_decode_command="gpg --status-fd=2 %?p?--pinentry-mode loopback --passphrase-fd 0? --verbose --quiet --batch --output - %f"
+set pgp_decode_command="gpg --status-fd=2 --verbose --quiet --batch --output - %f"
 
 # Verify a signature
 #
@@ -80,19 +78,19 @@ set pgp_verify_command="gpg --status-fd=2 --verbose --quiet --batch --output - -
 
 # Decrypt an attachment
 #
-set pgp_decrypt_command="gpg --status-fd=2 %?p?--pinentry-mode loopback --passphrase-fd 0? --verbose --quiet --batch --output - --decrypt %f"
+set pgp_decrypt_command="gpg --status-fd=2 --verbose --quiet --batch --output - --decrypt %f"
 
 # Create a PGP/MIME signed attachment
 #
 # set pgp_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
 #
-set pgp_sign_command="gpg %?p?--pinentry-mode loopback --passphrase-fd 0? --no-verbose --batch --quiet --output - --armor --textmode %?a?--local-user %a? --detach-sign %f"
+set pgp_sign_command="gpg --no-verbose --batch --quiet --output - --armor --textmode %?a?--local-user %a? --detach-sign %f"
 
 # Create a application/pgp inline signed message.  This style is obsolete but still needed for Hushmail recipients and some MUAs.
 #
 # set pgp_clear_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
 #
-set pgp_clear_sign_command="gpg %?p?--pinentry-mode loopback --passphrase-fd 0? --no-verbose --batch --quiet --output - --armor --textmode %?a?--local-user %a? --clearsign %f"
+set pgp_clear_sign_command="gpg --no-verbose --batch --quiet --output - --armor --textmode %?a?--local-user %a? --clearsign %f"
 
 # Create an encrypted attachment (note that some users include the --always-trust option here)
 #
@@ -104,7 +102,7 @@ set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output
 #
 # set pgp_encrypt_sign_command="/usr/libexec/neomutt/pgpewrap gpg-2comp %?p?--passphrase-fd 0? -v --batch --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
 #
-set pgp_encrypt_sign_command="pgpewrap gpg %?p?--pinentry-mode loopback --passphrase-fd 0? --batch --quiet --no-verbose --textmode --output - %?a?--local-user %a? --armor --sign --encrypt -- --recipient %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --batch --quiet --no-verbose --textmode --output - %?a?--local-user %a? --armor --sign --encrypt -- --recipient %r -- %f"
 
 # Import a key into the public key ring
 #
