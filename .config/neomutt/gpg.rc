@@ -19,9 +19,6 @@ set pgp_timeout = 0 # for good measure, has no effect when gpg-agent is used
 #   the "loopback" argument in instances where "--passphrase-fd" is
 #   used.
 #
-# Some of the older commented-out versions of the commands use gpg-2comp from:
-#   http://70t.de/download/gpg-2comp.tar.gz
-#
 # %p    The empty string when no passphrase is needed,
 #       the string "PGPPASSFD=0" if one is needed.
 #
@@ -82,25 +79,17 @@ set pgp_decrypt_command="gpg --status-fd=2 --verbose --quiet --batch --output - 
 
 # Create a PGP/MIME signed attachment
 #
-# set pgp_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
-#
 set pgp_sign_command="gpg --no-verbose --quiet --batch --output - --textmode --armor --detach-sign %?a?--local-user %a? %f"
 
 # Create a application/pgp inline signed message.  This style is obsolete but still needed for Hushmail recipients and some MUAs.
-#
-# set pgp_clear_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
 #
 set pgp_clear_sign_command="gpg --no-verbose --quiet --batch --output - --textmode --armor --clearsign %?a?--local-user %a? %f"
 
 # Create an encrypted attachment (note that some users include the --always-trust option here)
 #
-# set pgp_encrypt_only_command="/usr/libexec/neomutt/pgpewrap gpg-2comp -v --batch --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
-#
 set pgp_encrypt_only_command="pgpewrap gpg --no-verbose --quiet --batch --output - --textmode --armor --encrypt -- --recipient %r -- %f"
 
 # Create an encrypted and signed attachment (note that some users include the --always-trust option here)
-#
-# set pgp_encrypt_sign_command="/usr/libexec/neomutt/pgpewrap gpg-2comp %?p?--passphrase-fd 0? -v --batch --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
 #
 set pgp_encrypt_sign_command="pgpewrap gpg --no-verbose --quiet --batch --output - --textmode --armor --sign %?a?--local-user %a? --encrypt -- --recipient %r -- %f"
 
