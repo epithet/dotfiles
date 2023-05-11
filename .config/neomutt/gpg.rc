@@ -84,25 +84,25 @@ set pgp_decrypt_command="gpg --status-fd=2 --verbose --quiet --batch --output - 
 #
 # set pgp_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
 #
-set pgp_sign_command="gpg --no-verbose --batch --quiet --output - --armor --textmode %?a?--local-user %a? --detach-sign %f"
+set pgp_sign_command="gpg --no-verbose --quiet --batch --output - --textmode --armor --detach-sign %?a?--local-user %a? %f"
 
 # Create a application/pgp inline signed message.  This style is obsolete but still needed for Hushmail recipients and some MUAs.
 #
 # set pgp_clear_sign_command="gpg-2comp --comment '' --no-verbose --batch --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
 #
-set pgp_clear_sign_command="gpg --no-verbose --batch --quiet --output - --armor --textmode %?a?--local-user %a? --clearsign %f"
+set pgp_clear_sign_command="gpg --no-verbose --quiet --batch --output - --textmode --armor --clearsign %?a?--local-user %a? %f"
 
 # Create an encrypted attachment (note that some users include the --always-trust option here)
 #
 # set pgp_encrypt_only_command="/usr/libexec/neomutt/pgpewrap gpg-2comp -v --batch --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
 #
-set pgp_encrypt_only_command="pgpewrap gpg --batch --quiet --no-verbose --output - --textmode --armor --encrypt -- --recipient %r -- %f"
+set pgp_encrypt_only_command="pgpewrap gpg --no-verbose --quiet --batch --output - --textmode --armor --encrypt -- --recipient %r -- %f"
 
 # Create an encrypted and signed attachment (note that some users include the --always-trust option here)
 #
 # set pgp_encrypt_sign_command="/usr/libexec/neomutt/pgpewrap gpg-2comp %?p?--passphrase-fd 0? -v --batch --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
 #
-set pgp_encrypt_sign_command="pgpewrap gpg --batch --quiet --no-verbose --textmode --output - %?a?--local-user %a? --armor --sign --encrypt -- --recipient %r -- %f"
+set pgp_encrypt_sign_command="pgpewrap gpg --no-verbose --quiet --batch --output - --textmode --armor --sign %?a?--local-user %a? --encrypt -- --recipient %r -- %f"
 
 # Import a key into the public key ring
 #
