@@ -7,6 +7,7 @@
 	root = hash-object -t tree /dev/null
 	conflicts = diff --name-only --diff-filter=U # git ls-files -u
 	untracked = ls-files . --ignored --exclude-standard --others
+	cl = log --pretty=pgp
 	l  = log --pretty=seb
 	lg = log --pretty=seb --graph
 	la = log --pretty=seb --graph --all --remotes
@@ -15,6 +16,7 @@
 	yolo = !git commit -m \"$(curl -x \"http://hoffm_se:%3B8)oCV4cB@proxy-emea.rsint.net:80/\" -s whatthecommit.com/index.txt)\"
 [pretty]
 	seb = format:%C(auto)%h %ad%d %C(blue)%an%Creset %s
+	pgp = format:%C(auto)%h %C(dim blue)%G?%C(auto) %ad%d %C(blue)%an%Creset %s
 #[format]
 #	pretty = %C(auto)%h %ad%d %C(bold)%an%Creset %s
 [log]
