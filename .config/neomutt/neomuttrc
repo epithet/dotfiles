@@ -30,6 +30,20 @@ bind pager,index - half-up
 bind attach c view-pager # mnemonic: chars, copiousoutput(mailcap)
 bind index G imap-fetch-mail # overrides pop-fetch-mail
 
+# convert markdown to text + html
+# - the original markdown can be deleted with D
+# - the alternatives can be ungrouped with #
+# - the content-disposition can be toggled with ^D
+macro compose ,h \
+"<enter-command>set pipe_decode<enter>\
+<pipe-message>pandoc -f gfm -t plain -o $tmpdir/msg.txt<enter>\
+<pipe-message>pandoc -f gfm -t html -o $tmpdir/msg.html -s --self-contained --metadata title=mail --data-dir ~/.config/neomutt/ --template mail.html<enter>\
+<enter-command>unset pipe_decode<enter>\
+<attach-file>$tmpdir/msg.txt<enter><toggle-disposition>\
+<attach-file>$tmpdir/msg.html<enter><toggle-disposition>\
+<tag-entry><previous-entry><tag-entry><group-alternatives>" \
+"Convert markdown to plaintext and HTML alternative content types"
+
 # colors rely on 'nord' terminal theme
 
 color indicator     black cyan              # currently focussed message

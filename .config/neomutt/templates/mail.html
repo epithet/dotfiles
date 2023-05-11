@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    $styles.html()$
+    body { max-width: initial; }
+  </style>
+$for(header-includes)$
+  $header-includes$
+$endfor$
+</head>
+<body>
+  $body$
+  $for(include-after)$
+  $include-after$
+  $endfor$
+</body>
+</html>
