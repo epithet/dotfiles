@@ -173,7 +173,6 @@ builtins.removeAttrs rec {
     enable = true;
     defaultEditor = true; # environment.variables.EDITOR = "nvim";
     viAlias = true;
-    vimAlias = true;
     configure = {
       customRC = ''
         set ts=4 sw=4 sts=0 smarttab expandtab autoindent

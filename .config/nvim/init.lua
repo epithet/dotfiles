@@ -116,7 +116,6 @@ local function get_selection(type)
     end
     return table.concat(text, "\n")
 end
--- nvim_exec2 not defined during "git commit"??
 --local set_opfunc = vim.fn[vim.api.nvim_exec2([[
 --    " https://github.com/neovim/neovim/issues/14157
 --    func s:set_opfunc(val)

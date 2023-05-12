@@ -31,7 +31,7 @@
 #	keepBackup = false
 [core]
 	autocrlf = false
-	editor = vim
+	editor = nvim
 [credential]
 	helper = !pass-git-helper $@
 #	helper = wincred
