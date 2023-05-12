@@ -30,6 +30,9 @@ bind pager,index - half-up
 bind attach c view-pager # mnemonic: chars, copiousoutput(mailcap)
 bind index G imap-fetch-mail # overrides pop-fetch-mail
 
+# overrides standard urlview macro
+macro index,pager,attach,compose \cb |urlscan\n
+
 # convert markdown to text + html
 # - the original markdown can be deleted with D
 # - the alternatives can be ungrouped with #
