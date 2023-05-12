@@ -174,6 +174,13 @@ vim.api.nvim_create_autocmd("FileType", { pattern = "markdown", group = g, callb
     vim.opt_local.linebreak = true
 end })
 
+vim.api.nvim_create_autocmd("FileType", { pattern = "make,gitconfig", group = g, callback = function()
+    vim.opt_local.listchars = { tab = "  ", lead = "∙", trail = "∙", nbsp = "⊙" }
+    vim.opt_local.expandtab = false
+    vim.opt_local.tabstop = 8
+    vim.opt_local.shiftwidth = 8
+end })
+
 -- {{{ custom highlighting
 -- https://github.com/nvim-treesitter/nvim-treesitter/blob/master/queries/rust/highlights.scm
 -- colors from: https://github.com/NvChad/base46/blob/v2.0/lua/base46/themes/decay.lua
