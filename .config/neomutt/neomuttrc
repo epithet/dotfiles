@@ -20,6 +20,7 @@ set sort = reverse-date-received
 set date_format="%y-%m-%d"
 set index_format="%3C %Z %D %-20.20F (%?X?%X& ? %?l?%3l&%3c?) %s"
 set pager_stop = yes # don't go to next message after paging all the way down
+set wait_key = no # don't ask to press any key after external command
 
 bind pager j next-line
 bind pager k previous-line
