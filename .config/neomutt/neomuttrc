@@ -34,11 +34,11 @@ bind index G imap-fetch-mail # overrides pop-fetch-mail
 # overrides standard urlview macro
 macro index,pager,attach,compose \cb |urlscan\n
 
-# convert markdown to text + html
+# convert [m]arkdown to [m]arkup
 # - the original markdown can be deleted with D
 # - the alternatives can be ungrouped with #
 # - the content-disposition can be toggled with ^D
-macro compose ,h \
+macro compose ,m \
 "<enter-command>set pipe_decode<enter>\
 <pipe-message>pandoc -f gfm -t plain -o $tmpdir/msg.txt<enter>\
 <pipe-message>pandoc -f gfm -t html -o $tmpdir/msg.html -s --self-contained --metadata title=mail --data-dir ~/.config/neomutt/ --template mail.html<enter>\
