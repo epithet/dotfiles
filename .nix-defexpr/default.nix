@@ -48,7 +48,6 @@ in
 
       rofi
       rofimoji
-      xfce.xfdashboard
 
       firefox surf w3m lynx # elinks browsh (jumanji?)
       neomutt # aerc
