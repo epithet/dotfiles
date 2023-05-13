@@ -1,2 +1,9 @@
 text/html; surf %s; test=test -n "$DISPLAY"; nametemplate=%s.html
 text/html; w3m -I %{charset} -T text/html; copiousoutput; needsterminal
+application/pdf; xdg-open %s; test=test -n "$DISPLAY"
+image/bmp; xdg-open %s; test=test -n "$DISPLAY"
+image/gif; xdg-open %s; test=test -n "$DISPLAY"
+image/jpeg; xdg-open %s; test=test -n "$DISPLAY"
+image/png; xdg-open %s; test=test -n "$DISPLAY"
+image/svg+xml; xdg-open %s; test=test -n "$DISPLAY"
+image/tiff; xdg-open %s; test=test -n "$DISPLAY"
