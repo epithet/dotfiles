@@ -1,3 +1,4 @@
+set database null
 set window-height 1144
 set window-width 960
 map f toggle_fullscreen
