@@ -156,6 +156,11 @@ vim.keymap.set("n", "<leader>tP", "i<C-r>=system('tmux save-buffer -')<cr><esc>"
 -- even if this file is re-sourced
 local g = vim.api.nvim_create_augroup("my-augroup", { clear = true })
 
+vim.opt.equalalways = true
+vim.api.nvim_create_autocmd("VimResized", { group = g, callback = function()
+    vim.cmd.wincmd "="
+end })
+
 vim.api.nvim_create_autocmd("BufEnter", { group = g, callback = function()
     vim.opt_local.formatoptions:remove("o")
 end })
