@@ -22,6 +22,9 @@ alias less="less -S"
 alias grep="grep --color=auto"
 alias info="info --vi-keys"
 alias mutt="neomutt"
+if [ -r ~/.config/neomutt/accounts.sh ]; then
+    . ~/.config/neomutt/accounts.sh
+fi
 
 export HISTCONTROL=ignorespace:ignoredups
 
