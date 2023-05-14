@@ -3,7 +3,7 @@
 <channel name="xfce4-screensaver" version="1.0">
   <property name="saver" type="empty">
     <property name="mode" type="int" value="2"/>
-    <property name="enabled" type="bool" value="true"/>
+    <property name="enabled" type="bool" value="false"/>
     <property name="themes" type="empty">
       <property name="list" type="array">
         <value type="string" value="screensavers-xfce-floaters"/>
