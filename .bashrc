@@ -1,3 +1,5 @@
+umask 027
+
 function append_to_path() {
     PATH=${PATH:+':'$PATH':'}
     PATH=${PATH/':'$1':'/':'}
