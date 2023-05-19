@@ -42,11 +42,13 @@ end, { silent = true })
 -- Allow gf to open non-existent files
 vim.keymap.set("n", "gf", ":edit <cfile><CR>")
 
--- keep cursor centered
+-- keep cursor in a useful position
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "<leader>[", "[[zt", { remap = true }) -- how to map this to [[ ?
+vim.keymap.set("n", "<leader>]", "]]zt", { remap = true }) -- how to map this to ]] ?
 
 -- move code
 vim.keymap.set("v", "<M-j>", ":m '>+1<cr>gv=gv")
