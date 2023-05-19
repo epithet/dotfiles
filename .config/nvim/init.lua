@@ -505,7 +505,10 @@ require('packer').startup(function(use)
     }
     -- }}} tmux
 
+    -- {{{ Emmet-vim
+    vim.g.user_emmet_leader_key = "<A-m>"
     use "mattn/emmet-vim"
+    -- }}} Emmet-vim
 
     -- {{{ comments
     use {
