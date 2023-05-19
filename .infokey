@@ -1,0 +1,31 @@
+# ^ = Ctrl
+# \m = Alt (Meta)
+# \ku \kd \kl \kr = arrow keys
+# \kU \kD \kh \ke \kx = PgUp PgDown Home End Delete
+# \b \e \n \r \t =  backspace escape newline return tab
+h get-info-help-node
+\r select-reference-this-line
+[ global-prev-node
+] global-next-node
+^[ prev-node
+^] next-node
+o up-node
+g beginning-of-node
+G end-of-node
+u scroll-half-screen-up
+d scroll-half-screen-down
+f scroll-forward-page-only
+b scroll-backward-page-only
+j next-line
+k prev-line
+n search-next
+N search-previous
+#t top-node
+#< first-node
+#> last-node
+#H get-help-window
+#h get-info-help-node
+#\md dir-node
+#\t move-to-next-xref
+#"BackTab" move-to-prev-xref # sometimes shift-tab, doesn't work in tmux
+#l history-node
