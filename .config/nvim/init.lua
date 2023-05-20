@@ -39,6 +39,9 @@ vim.keymap.set("n", "<Esc>", function()
     vim.cmd("cclose")
 end, { silent = true })
 
+-- open netrw with -
+vim.keymap.set("n", "<leader>-", ":edit %:p:h<cr>")
+
 -- Allow gf to open non-existent files
 vim.keymap.set("n", "gf", ":edit <cfile><CR>")
 
