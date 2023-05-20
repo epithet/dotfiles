@@ -232,10 +232,10 @@ require('packer').startup(function(use)
             end })
         end,
     }
-    use { "catppuccin/nvim", as = "catppuccin" }
-    use { "rose-pine/neovim", as = "rose-pine" }
-    use { "sainnhe/everforest" }
-    use { "sainnhe/sonokai" }
+    use { disable = true, "catppuccin/nvim", as = "catppuccin" }
+    use { disable = true, "rose-pine/neovim", as = "rose-pine" }
+    use { disable = true, "sainnhe/everforest" }
+    use { disable = true, "sainnhe/sonokai" }
     -- }}} theme
 
     -- {{{ #rrggbb colorizer
@@ -372,6 +372,7 @@ require('packer').startup(function(use)
 
     -- {{{ nvim-tree
     use {
+        disable = true,
         "nvim-tree/nvim-tree.lua",
         requires = "nvim-tree/nvim-web-devicons", -- optional
         config = function()
