@@ -7,6 +7,7 @@
   <property name="log-level-apps" type="uint" value="0"/>
   <property name="applications" type="empty">
     <property name="known_applications" type="array">
+      <value type="string" value="FileZilla"/>
       <value type="string" value="notify-send"/>
       <value type="string" value="org.xfce.Thunar"/>
       <value type="string" value="Xfce volume control"/>
