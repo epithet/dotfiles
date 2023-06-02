@@ -1,4 +1,4 @@
-text/html; surf %s; test=test -n "$DISPLAY"; nametemplate=%s.html
+text/html; xdg-open %s; test=test -n "$DISPLAY"; nametemplate=%s.html
 text/html; w3m -I %{charset} -T text/html; copiousoutput; needsterminal
 application/pdf; xdg-open %s; test=test -n "$DISPLAY"
 image/bmp; xdg-open %s; test=test -n "$DISPLAY"
