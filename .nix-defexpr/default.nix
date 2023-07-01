@@ -157,6 +157,7 @@ in
 
       mate.engrampa
       zip unzip
+      p7zip
 
       duc
       du-dust
