@@ -138,6 +138,12 @@ builtins.removeAttrs rec {
     ACTION=="add", SUBSYSTEM=="input", ENV{ID_INPUT_TOUCHPAD}=="1", TAG+="uaccess"
   '';
 
+  # wake up Apple USB SuperDrive upon connection by sending magic byte sequence via SCSI
+  # https://www.cmos.blog/use-apples-usb-superdrive-with-linux/
+  _collect.superdrive.udev = ''
+    ACTION=="add", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="1500", DRIVERS=="usb", RUN+="${pkgs.sg3_utils}/bin/sg_raw /dev/$kernel EA 00 00 00 00 00 01"
+  '';
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.seb = {
     isNormalUser = true;
