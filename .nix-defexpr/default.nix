@@ -1,6 +1,6 @@
 with import <nixpkgs> {};
 let
-  master = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/244a2f399fa62bea8580b6c8518e9a0d0603a383.tar.gz) {}; # 2023-04-24 → Neovim 0.9
+  master = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/49d6651dc80012ead6957478c40ea3da2ba79244.tar.gz) {}; # 2023-07-04 → Neovim 0.9
 in
 {
   myPackages = buildEnv {
