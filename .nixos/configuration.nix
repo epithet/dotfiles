@@ -117,7 +117,7 @@ builtins.removeAttrs rec {
   # for a WiFi printer
   #services.avahi.openFirewall = true;
   # Samsung proprietary
-  services.printing.drivers = [ pkgs.samsung-unified-linux-driver ];
+  services.printing.drivers = [ pkgs.samsung-unified-linux-driver pkgs.hplip ];
   _collect.printer.unfree = [ pkgs.samsung-unified-linux-driver ];
 
   # Enable SANE to scan documents.
