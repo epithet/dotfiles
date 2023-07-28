@@ -105,7 +105,7 @@ builtins.removeAttrs rec {
   };
 
   # Configure keymap in X11
-  services.xserver.layout = "us,de";
+  services.xserver.layout = "us,de"; # setxkbmap -layout us,de
   services.xserver.xkbOptions = "terminate:ctrl_alt_bksp,grp:alt_shift_toggle,eurosign:e";
     # "caps:escape" # map caps to escape.
 
