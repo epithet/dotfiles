@@ -18,4 +18,5 @@
   <property name="theme" type="string" value="ZOMG-PONIES!"/>
   <property name="expire-timeout" type="int" value="2"/>
   <property name="notification-log" type="bool" value="true"/>
+  <property name="log-max-size-enabled" type="bool" value="true"/>
 </channel>
