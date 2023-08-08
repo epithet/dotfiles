@@ -1,7 +1,4 @@
 with import <nixpkgs> {};
-let
-  master = import (fetchTarball https://github.com/NixOS/nixpkgs/archive/49d6651dc80012ead6957478c40ea3da2ba79244.tar.gz) {}; # 2023-07-04 → Neovim 0.9
-in
 {
   myPackages = buildEnv {
     name = "my-packages";
@@ -116,15 +113,15 @@ in
       '')
       tmux.man
 
-      master.neovim
+      neovim
       (runCommandLocal "vi-link" {} ''
         mkdir -p $out/bin
-        ln -s ${master.neovim}/bin/nvim $out/bin/vi
+        ln -s ${neovim}/bin/nvim $out/bin/vi
       '')
       neovide
       (vimUtils.packDir({
         myNvimPlugins = {
-          start = with master.vimPlugins; [
+          start = with vimPlugins; [
             vim-nix
             packer-nvim
           ];
