@@ -265,13 +265,13 @@ require('packer').startup(function(use)
     use {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
-            require("indent_blankline").setup {
-                char_highlight_list = { "IndentBlanklineIndent1" },
-                --show_current_context = true,
+            local hooks = require("ibl.hooks")
+            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+                vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#333333" })
+            end)
+            require("ibl").setup {
+                indent = { highlight = { "RainbowRed" } },
             }
-            vim.api.nvim_create_autocmd("ColorScheme", { callback = function()
-                vim.api.nvim_set_hl(0, "IndentBlanklineIndent1", { fg = "#333333" })
-            end })
         end,
     }
     -- }}} indentation guides
