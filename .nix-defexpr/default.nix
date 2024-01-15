@@ -29,7 +29,7 @@ with import <nixpkgs> {};
       '')
       alacritty
       starship
-      exa lsd bat ripgrep ripgrep-all fd
+      lsd bat ripgrep ripgrep-all fd
       procs htop lsof # lsof needed for htop 'l'
       file
       progress

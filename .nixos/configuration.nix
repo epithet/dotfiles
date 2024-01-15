@@ -88,7 +88,7 @@ builtins.removeAttrs rec {
   fonts = {
     #fontDir.enable = true;
     #enableGhostscriptFonts = true;
-    fonts = with pkgs; [
+    packages = with pkgs; [
       #corefonts # unfree
       dejavu_fonts
       jetbrains-mono
