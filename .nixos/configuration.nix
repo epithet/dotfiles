@@ -130,8 +130,11 @@ builtins.removeAttrs rec {
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
-  # Give users access to touchpad via access control list (cf. `getfacl`),
+  # Give users access to touchpad via access control list,
   # i.e. without adding them to the `input` group (keylogger danger).
+  #   ls -l /dev/input/mouse* # look for +
+  #   getfattr -d -m - /dev/input/mouse*
+  #   getfacl /dev/input/mouse*
   # Used by e.g. `gebaar-libinput` and https://github.com/mqudsi/syngesture/
   # cf. `libinput debug-events`, `udevadm info -t`
   # https://github.com/systemd/systemd/issues/4288
