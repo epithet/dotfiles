@@ -30,6 +30,7 @@ with import <nixpkgs> {};
       alacritty
       starship
       lsd bat ripgrep ripgrep-all fd
+      fzf
       procs htop lsof # lsof needed for htop 'l'
       file
       progress

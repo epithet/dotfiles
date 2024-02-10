@@ -27,6 +27,8 @@ if [ -r ~/.config/neomutt/accounts.sh ]; then
     . ~/.config/neomutt/accounts.sh
 fi
 
+bind -x '"":"tmux-sessionizer"'
+
 export HISTCONTROL=ignorespace:ignoredups
 
 eval "$(starship init bash)"
