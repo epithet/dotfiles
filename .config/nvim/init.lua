@@ -39,6 +39,9 @@ vim.keymap.set("n", "<Esc>", function()
     vim.cmd("cclose")
 end, { silent = true })
 
+-- reduce buffer to lines containing word under cursor (useful for log files)
+vim.keymap.set('n', '<leader>lg', ":%!grep <cword><cr>")
+
 -- open netrw with -
 vim.keymap.set("n", "<leader>-", ":edit %:p:h<cr>")
 
