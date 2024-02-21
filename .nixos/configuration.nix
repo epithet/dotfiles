@@ -148,6 +148,11 @@ builtins.removeAttrs rec {
     ACTION=="add", ATTRS{idVendor}=="05ac", ATTRS{idProduct}=="1500", DRIVERS=="usb", RUN+="${pkgs.sg3_utils}/bin/sg_raw /dev/$kernel EA 00 00 00 00 00 01"
   '';
 
+  # VM (TAG+="uaccess" doesn't seem to work here)
+  _collect.vmdisk.udev = ''
+    ACTION=="add", SUBSYSTEM=="block", ENV{ID_SERIAL_SHORT}=="S7KVNJ0WA00158H", GROUP="users"
+  '';
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.seb = {
     isNormalUser = true;
