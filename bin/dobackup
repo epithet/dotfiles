@@ -3,36 +3,19 @@ set -e
 
 #repos=(local:/tmp/backup)
 #budirs=(~/work ~/Documents)
-#stage=/backup
 . $0.settings
-
-prereqs=(/nix ~/.nix-profile)
-for dir in "${prereqs[@]}"; do
-    binds+=(--ro-bind "$dir" "$dir")
-done
-
-for dir in "${budirs[@]}"; do
-    binds+=(--ro-bind "$dir" "$stage"/"$(basename "$dir")")
-    budirnames+=("$(basename "$dir")")
-done
 
 for repo in "${repos[@]}"; do
     export RESTIC_PASSWORD=$(pass show "restic/$repo")
-    snapspec=(--repo "$repo" --host anyhost --tag bu)
-    args_restic=(backup "${snapspec[@]}")
+    snapspec=(--repo "$repo" --tag bu)
+    args=(backup "${snapspec[@]}")
     parent=$(restic snapshots "${snapspec[@]}" --json |jq -r "last .id")
     if [[ $parent != null ]]; then
-        args_restic+=(--parent $parent)
+        args+=(--parent $parent)
     fi
-    args_restic+=("${budirnames[@]}")
-
-    args_bwrap=(--chdir "$stage" "${binds[@]}" --tmpfs /tmp)
-    if [[ $repo == local:* ]]; then
-        repodir=${repo#local:}
-        args_bwrap+=(--bind "$repodir" "$repodir")
-    fi
+    args+=("${budirs[@]}")
 
     set -x
-    bwrap "${args_bwrap[@]}" -- restic "${args_restic[@]}"
+    restic "${args[@]}"
     set +x
 done
