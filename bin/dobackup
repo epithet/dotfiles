@@ -19,7 +19,12 @@ done
 for repo in "${repos[@]}"; do
     export RESTIC_PASSWORD=$(pass show "restic/$repo")
     snapspec=(--repo "$repo" --host anyhost --tag bu)
+    args_restic=(backup "${snapspec[@]}")
     parent=$(restic snapshots "${snapspec[@]}" --json |jq -r "last .id")
+    if [[ $parent != null ]]; then
+        args_restic+=(--parent $parent)
+    fi
+    args_restic+=("${budirnames[@]}")
 
     args_bwrap=(--chdir "$stage" "${binds[@]}" --tmpfs /tmp)
     if [[ $repo == local:* ]]; then
@@ -28,7 +33,6 @@ for repo in "${repos[@]}"; do
     fi
 
     set -x
-    bwrap "${args_bwrap[@]}" -- \
-      restic backup "${snapspec[@]}" --parent $parent "${budirnames[@]}"
+    bwrap "${args_bwrap[@]}" -- restic "${args_restic[@]}"
     set +x
 done
