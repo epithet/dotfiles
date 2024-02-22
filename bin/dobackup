@@ -6,8 +6,15 @@ set -e
 . $0.settings
 
 for repo in "${repos[@]}"; do
+    export RESTIC_REPOSITORY=$repo
     export RESTIC_PASSWORD=$(pass show "restic/$repo")
-    snapspec=(--repo "$repo" --tag bu)
+    if ! restic cat config >/dev/null 2>&1; then
+        echo $(tput setab 1)SKIPPING$(tput sgr0) $repo
+        echo
+        continue
+    fi
+
+    snapspec=(--tag bu)
     args=(backup "${snapspec[@]}")
     parent=$(restic snapshots "${snapspec[@]}" --json |jq -r "last .id")
     if [[ $parent != null ]]; then
