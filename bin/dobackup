@@ -6,12 +6,10 @@ set -e
 #stage=/backup
 . $0.settings
 
-me=$(id -u):$(id -g)
-if [[ $(stat -c %F:%u:%g "$stage" 2>/dev/null) != directory:$me ]]; then
-    echo preparing backup stage at "$stage"
-    sudo mkdir -p "$stage"
-    sudo chown $me "$stage"
-fi
+prereqs=(/nix ~/.nix-profile)
+for dir in "${prereqs[@]}"; do
+    binds+=(--ro-bind "$dir" "$dir")
+done
 
 for dir in "${budirs[@]}"; do
     binds+=(--ro-bind "$dir" "$stage"/"$(basename "$dir")")
@@ -22,8 +20,15 @@ for repo in "${repos[@]}"; do
     export RESTIC_PASSWORD=$(pass show "restic/$repo")
     snapspec=(--repo "$repo" --host anyhost --tag bu)
     parent=$(restic snapshots "${snapspec[@]}" --json |jq -r "last .id")
+
+    args_bwrap=(--chdir "$stage" "${binds[@]}" --tmpfs /tmp)
+    if [[ $repo == local:* ]]; then
+        repodir=${repo#local:}
+        args_bwrap+=(--bind "$repodir" "$repodir")
+    fi
+
     set -x
-    bwrap --bind / / "${binds[@]}" --chdir "$stage" -- \
+    bwrap "${args_bwrap[@]}" -- \
       restic backup "${snapspec[@]}" --parent $parent "${budirnames[@]}"
     set +x
 done
