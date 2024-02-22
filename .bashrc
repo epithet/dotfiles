@@ -14,6 +14,8 @@ alias stod="GIT_DIR=~/.dotfiles tig"
 . /run/current-system/sw/share/bash-completion/completions/git
 eval "$(complete -p |awk '/ git$/{sub(/ git$/," dots");print}')"
 
+. ~/bin/dobackup.completion
+
 alias forgetpws="systemctl --user stop gpg-agent"
 alias ..="cd .."
 alias ls="lsd --color=auto" # for --color=always use `lsd`

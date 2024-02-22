@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+_dobackup_completion() {
+    if [[ "$COMP_LINE" = *'"'* || "$COMP_LINE" = *"'"* ]]; then
+        COMPREPLY=($(compgen -W "$(dobackup --list-repos)" -- "${COMP_WORDS[1]}"))
+    else
+        COMPREPLY=($(compgen -W "$(dobackup --list-repos)" -- "${COMP_WORDS[1]}" |sed 's/:/\\:/'))
+    fi
+}
+complete -F _dobackup_completion dobackup
