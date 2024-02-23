@@ -12,13 +12,18 @@ if [[ $# = 1 && "$1" = "--list-repos" ]]; then
     exit
 fi
 
+if [[ $# = 2 && "$2" = "--login" ]]; then
+    echo export RESTIC_REPOSITORY=$1
+    echo export RESTIC_PASSWORD_COMMAND=\"pass show restic/$1\"
+    exit
+fi
+
 if [[ $# != 0 ]]; then
     repos=("$@")
 fi
 
 for repo in "${repos[@]}"; do
-    export RESTIC_REPOSITORY=$repo
-    export RESTIC_PASSWORD=$(pass show "restic/$repo")
+    . <($0 $repo --login)
     if ! restic cat config >/dev/null 2>&1; then
         echo $(tput setab 1)SKIPPING$(tput sgr0) $repo
         echo
