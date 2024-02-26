@@ -22,6 +22,8 @@ if [[ $# != 0 ]]; then
     repos=("$@")
 fi
 
+bash $0.pre
+
 for repo in "${repos[@]}"; do
     . <($0 $repo --login)
     if ! restic cat config >/dev/null 2>&1; then
