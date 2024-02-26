@@ -39,6 +39,7 @@ for repo in "${repos[@]}"; do
     args+=("${budirs[@]}")
 
     set -x
+    cd
     restic "${args[@]}"
     set +x
 done
