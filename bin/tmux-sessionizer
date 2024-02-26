@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# adapted from:
+# https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
 
 if [[ $# -eq 1 ]]; then
     selected=$1
