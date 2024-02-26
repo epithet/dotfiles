@@ -33,7 +33,7 @@ for repo in "${repos[@]}"; do
     fi
 
     snapspec=(--tag bu)
-    args=(backup "${snapspec[@]}")
+    args=(backup "${snapspec[@]}" --exclude-caches)
     parent=$(restic snapshots "${snapspec[@]}" --json |jq -r "last .id")
     if [[ $parent != null ]]; then
         args+=(--parent $parent)
