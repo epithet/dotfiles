@@ -21,7 +21,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = false
 
-vim.opt.guifont = "JetBrains Mono:h7"
+vim.opt.guifont = "JetBrains Mono:h11"
 
 -- {{{ key bindings
 
