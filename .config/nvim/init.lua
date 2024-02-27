@@ -544,6 +544,7 @@ require('packer').startup(function(use)
                     "rust",
                     "javascript",
                     "typescript",
+                    "c_sharp",
                 },
                 sync_install = false,
                 auto_install = false,
