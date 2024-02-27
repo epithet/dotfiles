@@ -39,6 +39,12 @@ vim.keymap.set("n", "<Esc>", function()
     vim.cmd("cclose")
 end, { silent = true })
 
+-- set keymap
+-- to view available keymaps, :e $VIMRUNTIME/keymap
+vim.keymap.set("n", "<leader>k<space>", ":setlocal keymap=<cr>")
+vim.keymap.set("n", "<leader>kd", ":setlocal keymap=german-qwertz<cr>")
+vim.keymap.set("n", "<leader>kg", ":setlocal keymap=german-qwertz<cr>")
+
 -- reduce buffer to lines containing word under cursor (useful for log files)
 vim.keymap.set('n', '<leader>lg', ":%!grep <cword><cr>")
 
