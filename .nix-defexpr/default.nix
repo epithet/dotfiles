@@ -132,6 +132,7 @@ with import <nixpkgs> {};
       sumneko-lua-language-server
       clang-tools
       rust-analyzer cargo rustc
+      csharp-ls
       lldb
       nodejs
 

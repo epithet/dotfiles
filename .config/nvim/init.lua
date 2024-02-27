@@ -623,6 +623,7 @@ require('packer').startup(function(use)
                 "rnix",
                 "clangd",
                 "rust_analyzer",
+                "csharp_ls",
             })
 
             require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
