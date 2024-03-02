@@ -18,8 +18,17 @@ if [[ $# = 2 && "$2" = "--login" ]]; then
     exit
 fi
 
-if [[ $# != 0 ]]; then
-    repos=("$@")
+additional_args=()
+override_repos=()
+for arg in "$@"; do
+    if [[ $arg = -* ]]; then
+        additional_args+=("$arg")
+    else
+        override_repos+=("$arg")
+    fi
+done
+if [[ ${#override_repos[@]} != 0 ]]; then
+    repos=("${override_repos[@]}")
 fi
 
 bash $0.pre
@@ -42,6 +51,6 @@ for repo in "${repos[@]}"; do
 
     set -x
     cd
-    restic "${args[@]}"
+    restic "${args[@]}" "${additional_args[@]}"
     set +x
 done
