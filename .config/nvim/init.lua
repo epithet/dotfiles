@@ -45,6 +45,12 @@ vim.keymap.set("n", "<leader>k<space>", ":setlocal keymap=<cr>")
 vim.keymap.set("n", "<leader>kd", ":setlocal keymap=german-qwertz<cr>")
 vim.keymap.set("n", "<leader>kg", ":setlocal keymap=german-qwertz<cr>")
 
+-- spell-check: `zg` good, `zw` wrong, `zug`/`zuw` undo, `z=` suggest, `[s`/`]s` prev/next
+vim.keymap.set("n", "<leader>s<space>", ":setlocal nospell<cr>")
+vim.keymap.set("n", "<leader>se", ":setlocal spell spelllang=en<cr>")
+vim.keymap.set("n", "<leader>sd", ":setlocal spell spelllang=de<cr>")
+vim.keymap.set("n", "<leader>sg", ":setlocal spell spelllang=de<cr>")
+
 -- reduce buffer to lines containing word under cursor (useful for log files)
 vim.keymap.set('n', '<leader>lg', ":%!grep <cword><cr>")
 
